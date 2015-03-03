@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
   # configure DNS forwarding to Consul
   $configDns = <<CONFIGDNS
 HOST_IP=$(ifconfig docker0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1}')
-echo "EXTRA_ARGS='--dns ${HOST_IP} --dns 8.8.4.4 --dns 8.8.8.8 --dns-search consul'" > /var/lib/boot2docker/profile
+echo "EXTRA_ARGS='--dns ${HOST_IP-172.17.42.1} --dns 8.8.4.4 --dns 8.8.8.8 --dns-search consul'" > /var/lib/boot2docker/profile
 echo "DOCKER_TLS='no'" >> /var/lib/boot2docker/profile
 sudo /etc/init.d/docker restart
 CONFIGDNS
