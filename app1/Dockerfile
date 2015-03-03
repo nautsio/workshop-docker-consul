@@ -1,10 +1,5 @@
-FROM debian:jessie
-RUN apt-get update && apt-get -y install python
-ADD https://bootstrap.pypa.io/get-pip.py /get-pip.py
-RUN python get-pip.py && rm /get-pip.py
+FROM cargonauts/python:2.7
 RUN pip install flask redis
 
-ADD . /code
-WORKDIR /code
+ADD *.py /srv/
 EXPOSE 80
-ENTRYPOINT python app.py
