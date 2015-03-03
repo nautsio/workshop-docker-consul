@@ -9,10 +9,10 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "app1" do |app1|
-    app1.vm.provider "docker" do |d|
+  config.vm.define "helloworld" do |helloworld|
+    helloworld.vm.provider "docker" do |d|
       d.vagrant_vagrantfile = "docker-consul-host/Vagrantfile"
-      d.build_dir = "app1"
+      d.build_dir = "helloworld"
       d.ports = ["12345:80"]
     end
   end
