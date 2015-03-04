@@ -12,8 +12,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "helloworld" do |helloworld|
     helloworld.vm.provider "docker" do |d|
       d.vagrant_vagrantfile = "docker-consul-host/Vagrantfile"
-      d.build_dir = "helloworld"
-      d.ports = ["12345:80"]
+      d.image = "cargonauts/helloworld-python"
+      d.cmd = ["/srv/helloworld.py"]
+      d.ports = ["80:80"]
     end
   end
 
