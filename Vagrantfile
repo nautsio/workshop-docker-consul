@@ -4,7 +4,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "consul" do |consul|
     consul.vm.provider "docker" do |d|
       d.vagrant_vagrantfile = "docker-consul-host/Vagrantfile"
-      d.build_dir = "consul"
+      d.image = "cargonauts/consul-dns"
+      d.cmd = ["/consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -config-dir /opt/config/ -client 0.0.0.0"]
       d.create_args = ['-d', '-p', '53:53/udp']
     end
   end
