@@ -3,7 +3,43 @@ Run single application
 
 Use Vagrant to run Docker containers
 
+!SUB
+Requirements
 
+- Vagrant 1.7+
+- Virtualbox 4.3+
+- (optional) Docker 1.5 client
+
+
+!SUB
+Clone repository and start vagrant
+```
+git clone https://github.com/xebia/meetup-automating-the-modern-datacenter
+cd meetup-automating-the-modern-datacenter
+vagrant up --no-parallel
+```
+
+!SUB
+(optional)
+Set Docker environment variables:
+
+```
+$ export DOCKER_HOST=tcp://192.168.10.10:2375
+$ unset DOCKER_TLS_VERIFY
+$ unset DOCKER_CERT_PATH
+
+$ docker ps
+```
+
+!SUB
+Check application is running:
+http://192.168.10.10
+
+```
+$ vagrant status
+
+$ docker ps
+```
 
 !SLIDE
 # 2
