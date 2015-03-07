@@ -31,9 +31,11 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 !SUB
 ## Prerequisites
-[Install Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v 1.7+)
+[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v 1.7+)
 
-[Install Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
+[Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
+
+[Docker client](https://docs.docker.com/installation/) (v1.5, optional)
 
 
 
