@@ -14,7 +14,14 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 !SLIDE
 # Introduction
 
+
 !SUB
+## Menu for today
+
+- Use Vagrant to orchestrate Docker containers
+- Use Consul for service discovery
+- Do load-balancing of a service
+- Use healt-checks to update the service registry
 
 
 
@@ -23,25 +30,17 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 
 !SUB
-Install Vagrant
+## Prerequisites
+[Install Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v 1.7+)
 
+[Install Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
 
-!SUB
-Install Packer
-
-
-!SUB
-Check if it works
-```
-packer --version
-> Packer v0.6.1
-```
 
 
 !SUB
 Get the files
 
-[github.com/xebia/meetup-automating-the-modern-datacenter](https://github.com/xebia/meetup-automating-the-modern-datacenter)
+[https://github.com/xebia/meetup-automating-the-modern-datacenter](https://github.com/xebia/meetup-automating-the-modern-datacenter)
 ```
 git clone https://github.com/xebia/meetup-automating-the-modern-datacenter.git
 ```
@@ -53,36 +52,19 @@ git clone https://github.com/xebia/meetup-automating-the-modern-datacenter.git
 ![PVagrant](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 
 
+!SUB
+## Vagrant introduction
+Vagrant needs no introduction ;)
 
-!SLIDE
-# Packer
-![Packer logo](img/packer-logo.png) <!-- .element: class="noborder" -->
+But here's one anyway
 
 
 !SUB
-## Packer introduction
-
-"Packer is a tool for creating identical machine images for multiple platforms from a single source configuration."
-
-[_packer.io_](http://www.packer.io)
+### Vagrant features
 
 
 !SUB
-## Packer features
-
-- A single template  creates images for multiple platforms
-- Use (existing) configuration management
-- Parallel image creation
-
-[_packer.io_](http://www.packer.io/intro)
-
-
-!SUB
-### Packer works with
-
-- Packer template file (json)
-- Builders (Docker, AWS, etc)  
-- Provisioners (Shell script, Salt, etc)
+### Vagrant works with
 
 
 
@@ -101,8 +83,7 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SUB
-
-### Consul Features:
+### Consul Features
 
  - Service discovery
  - Health checking
@@ -115,7 +96,7 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 !SUB
 
-### Consul works with:
+### Consul works with
 
  - Peer to peer networking
  - Gossip protocol (Serf)
