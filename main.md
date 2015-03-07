@@ -1,51 +1,72 @@
-# 1
-Run single application
+![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
+![plus](img/plus.png) <!-- .element: class="noborder" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
-Use Vagrant to run Docker containers
 
-!SUB
-Requirements
-
-- Vagrant 1.7+
-- Virtualbox 4.3+
-- (optional) Docker 1.5 client
+## Use Vagrant to run Docker containers
 
 
 !SUB
-Clone repository and start vagrant
-```
-git clone https://github.com/xebia/meetup-automating-the-modern-datacenter
-cd meetup-automating-the-modern-datacenter
-vagrant up --no-parallel
-```
+## Vagrant & Docker
+
+Vagrant has a [Docker provider](http://docs.vagrantup.com/v2/docker/)
+
+This allows us to spawn and control (sets of) Docker containers from Vagrant
+
 
 !SUB
-(optional)
-Set Docker environment variables:
+`Vagrantfile`
+```
+config.vm.define "helloworld" do |helloworld|
+  helloworld.vm.provider "docker" do |d|
+    d.image = "cargonauts/helloworld-python"
+    d.cmd = ["/srv/helloworld.py"]
+    d.ports = ["80:80"]
+  end
+end
+```
+
+
+!SUB
+Start the Dockerized hello world app using Vagrant
+```
+$ cd meetup-automating-the-modern-datacenter
+$ vagrant up --no-parallel
+```
+
+
+!SUB
+Check if the application is running
 
 ```
+$ vagrant status
+consul                    running (docker)
+helloworld                running (docker)
+```
+
+[192.168.10.10](http://192.168.10.10)
+
+
+!SUB
+Use your local Docker client (optional)
+
+```
+# Set Docker environment variables
 $ export DOCKER_HOST=tcp://192.168.10.10:2375
 $ unset DOCKER_TLS_VERIFY
 $ unset DOCKER_CERT_PATH
 
 $ docker ps
+CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                                        NAMES
+b7bf2504cd83        cargonauts/helloworld-python:latest   "/srv/helloworld.py"   30 seconds ago       Up 30 seconds       0.0.0.0:80->80/tcp                           meetup-automating-the-modern-datacenter-master_helloworld_1425766873
+7ea902040448        cargonauts/consul-web:latest          "/bin/sh -c '/consul"  About a minute ago   Up About a minute   0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   meetup-automating-the-modern-datacenter-master_consul_1425766851
 ```
 
-!SUB
-Check application is running:
-http://192.168.10.10
 
-```
-$ vagrant status
-
-$ docker ps
-```
 
 !SLIDE
 # 2
-Application + database
-
-Service registry + discovery using DNS
+## service discovery using Consul
 
 
 !SUB
