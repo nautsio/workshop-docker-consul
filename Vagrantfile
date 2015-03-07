@@ -1,5 +1,4 @@
 Vagrant.configure("2") do |config|
-  # config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.provider "docker" do |d|
     d.vagrant_vagrantfile = "docker-consul-host/Vagrantfile"
   end
