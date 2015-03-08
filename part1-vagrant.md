@@ -15,6 +15,32 @@ This allows us to spawn and control Docker containers with Vagrant
 
 
 !SUB
+We'll start by running a simple "Hello World!" web application
+
+`helloworld.py`
+```
+#!/usr/bin/env python
+
+from flask import Flask
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello():
+    return 'Hello World!'
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80, debug=True)
+```
+
+!SUB
+This application is packaged in the [`cargonauts/helloworld-python`](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
+
+The source can be found on [GitHub](https://github.com/cargonauts/helloworld-python)
+
+
+
+!SUB
 Example `Vagrantfile`
 ```
 config.vm.define "helloworld" do |helloworld|
@@ -111,6 +137,36 @@ id       name    provider   state   directory
 
 
 !SUB
+We want to know how many times the "Hello World!" application has been viewed.
+
+For this to work we need to store the amount of visits in a database. We'll be using Redis.
+
+
+!SUB
+`helloworld-db.py`
+```
+#!/usr/bin/env python
+
+from flask import Flask
+from redis import Redis
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379) # The app will look for Redis on
+                                       # this host + port
+
+@app.route('/')
+def hello():
+    redis.incr('hits')
+    return 'Hello World! I have been seen %s times.' % redis.get('hits')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80, debug=True)
+```
+
+This application is also part of the [`cargonauts/helloworld-python`](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
+
+
+
+!SUB
 Example `Vagrantfile`
 ```
 Vagrant.configure("2") do |config|
@@ -185,13 +241,22 @@ They need a mechanism to find each other
 
 
 !SUB
+## Docker links
+- Rely on named containers
+- Allows the recipient to read data about and connect to the source
+- This is achieved by
+  - Adding environment variables, for example `<name>_PORT_<port>_<protocol>`
+  - Add the name and IP of the source to the recipients `/etc/hosts` file
+
+
+!SUB
 Example `Vagrantfile`
 ```
 Vagrant.configure("2") do |config|
   ...
   config.vm.define "redis" do |redis|
     redis.vm.provider "docker" do |d|
-      d.name = "redis"
+      d.name = "redis" #necessary for Docker links
       d.image = "redis"
     end
   end
@@ -201,7 +266,7 @@ Vagrant.configure("2") do |config|
       d.image = "cargonauts/helloworld-python"
       d.cmd = ["/srv/helloworld-db.py"]
       d.ports = ["80:80"]
-      d.link("redis:redis")
+      d.link("redis:redis") #this links redis to hellodb
     end
   end
 end
@@ -234,5 +299,13 @@ CONTAINER ID        IMAGE                                 COMMAND               
 ecb6198a819b        redis:latest                          "/entrypoint.sh redi   3 minutes ago       Up 3 minutes        6379/tcp             redis
 ```
 
+
 !SUB
 Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+
+
+!SUB
+## What just happened?
+- The redis container was spawned with the name "redis"
+- On hellodb's creation Docker adds a line it's `/etc/hosts` file which maps the hostname "redis" to the matching IP address
+- The hellodb application connects to "redis:6379" which with the help of the value in the `/etc/hosts` file gets mapped to the IP address of the redis container
