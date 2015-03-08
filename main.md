@@ -31,7 +31,7 @@ end
 Start the Dockerized hello world app using Vagrant
 ```
 $ cd meetup-automating-the-modern-datacenter
-$ vagrant up --no-parallel
+$ vagrant up
 ```
 
 
@@ -54,7 +54,6 @@ Use your local Docker client (optional)
 # Set Docker environment variables
 $ export DOCKER_HOST=tcp://192.168.10.10:2375
 $ unset DOCKER_TLS_VERIFY
-$ unset DOCKER_CERT_PATH
 
 $ docker ps
 CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                                        NAMES
@@ -93,9 +92,10 @@ Need service registry
 
 
 !SUB
-Simplest way is using DNS
+Simplest way is using DNS:
 
-Add docker0 ip address as EXTRA_ARGS to Docker daemon & bind Consul as DNS server to the host
+- Start Docker daemon with extra parameter: `--dns <IP of docker0>`
+- Bind Consul as DNS server to the Docker host
 
 
 !SUB
