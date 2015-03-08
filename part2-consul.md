@@ -1,4 +1,5 @@
-# 2b
+![Docker logo](img/consul-logo.png) <!-- .element: class="noborder" -->
+
 ## service discovery using Consul
 
 
