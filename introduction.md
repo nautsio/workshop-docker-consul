@@ -44,7 +44,8 @@ Get the files
 
 [https://github.com/xebia/meetup-automating-the-modern-datacenter](https://github.com/xebia/meetup-automating-the-modern-datacenter)
 ```
-git clone https://github.com/xebia/meetup-automating-the-modern-datacenter.git
+$ git clone https://github.com/xebia/meetup-automating-the-modern-datacenter.git
+$ cd meetup-automating-the-modern-datacenter
 ```
 
 

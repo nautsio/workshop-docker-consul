@@ -3,7 +3,7 @@
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
 
 
-## Use Vagrant to run Docker containers
+## Run a Docker container with Vagrant
 
 
 !SUB
@@ -11,14 +11,14 @@
 
 Vagrant has a [Docker provider](http://docs.vagrantup.com/v2/docker/)
 
-This allows us to spawn and control (sets of) Docker containers from Vagrant
+This allows us to spawn and control Docker containers from Vagrant
 
 
 !SUB
 `Vagrantfile`
 ```
-config.vm.define "helloworld" do |helloworld|
-  helloworld.vm.provider "docker" do |d|
+config.vm.define "helloworld1" do |helloworld1|
+  helloworld1.vm.provider "docker" do |d|
     d.image = "cargonauts/helloworld-python"
     d.cmd = ["/srv/helloworld.py"]
     d.ports = ["80:80"]
@@ -30,18 +30,17 @@ end
 !SUB
 Start the Dockerized hello world app using Vagrant
 ```
-$ cd meetup-automating-the-modern-datacenter
+$ cd part1
 $ vagrant up
 ```
 
 
 !SUB
-Check if the application is running
+Check if the container is running
 
 ```
 $ vagrant status
-consul                    running (docker)
-helloworld                running (docker)
+helloworld1               running (docker)
 ```
 
 [192.168.10.10](http://192.168.10.10)
@@ -58,13 +57,65 @@ $ unset DOCKER_TLS_VERIFY
 $ docker ps
 CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                                        NAMES
 b7bf2504cd83        cargonauts/helloworld-python:latest   "/srv/helloworld.py"   30 seconds ago       Up 30 seconds       0.0.0.0:80->80/tcp                           meetup-automating-the-modern-datacenter-master_helloworld_1425766873
-7ea902040448        cargonauts/consul-web:latest          "/bin/sh -c '/consul"  About a minute ago   Up About a minute   0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   meetup-automating-the-modern-datacenter-master_consul_1425766851
 ```
 
 
 
 !SLIDE
-# 2
+![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
+![plus](img/plus.png) <!-- .element: class="noborder" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+
+
+## Orchestrate multiple Docker containers with Vagrant
+
+
+!SUB
+`Vagrantfile`
+```
+Vagrant.configure("2") do |config|
+  ...
+
+  config.vm.define "redis" do |redis|
+    redis.vm.provider "docker" do |d|
+      d.build_dir = "redis-wrapper"
+    end
+  end
+
+  config.vm.define "helloworld2" do |helloworld|
+    helloworld.vm.provider "docker" do |d|
+      d.image = "cargonauts/helloworld-python"
+      d.cmd = ["/srv/helloworld-db.py"]
+      d.ports = ["80:80"]
+    end
+  end
+end
+```
+
+
+!SUB
+Start the Dockerized apps
+```
+$ cd part2
+# Start the containers sequentially
+$ vagrant up --no-parallel
+```
+
+
+!SUB
+Check if the containers are running
+```
+$ vagrant status
+redis                     running (docker)
+helloworld2               running (docker)
+```
+
+[192.168.10.10](http://192.168.10.10)
+
+
+
+!SLIDE
+# 2b
 ## service discovery using Consul
 
 
