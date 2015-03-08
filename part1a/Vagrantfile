@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+  # Override docker host with our own
+  config.vm.provider "docker" do |d|
+    d.vagrant_vagrantfile = "../docker-consul-host/Vagrantfile"
+  end
+
+  config.vm.define "helloworld" do |helloworld|
+    helloworld.vm.provider "docker" do |d|
+      d.image = "cargonauts/helloworld-python"
+      d.cmd = ["/srv/helloworld.py"]
+      d.ports = ["80:80"]
+    end
+  end
+
+end
