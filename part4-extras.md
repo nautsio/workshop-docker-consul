@@ -1,22 +1,31 @@
-# Extra exercises for the quick
+# Already done?
 
-- Health-checks (update service registry)
+Wow, you're quick :-)
+<br><br>
+Here is some more stuff you could try:
+
+- Health-checks
 - A/B Testing
-- Feature toggles using K/V toggles
+- Feature toggles
 
+<br>
+Careful though, you're on you own now...
 
 !SLIDE
 
 # Health Checks
 
 !SUB
-Health-checks for the webserver apps
 
-Remove from load-balancer if failed
+Consul support [health checks](https://consul.io/intro/getting-started/checks.html)
+
+Add health-checks to helloworld app
+
+Remove from haproxy if failed
 
 
 !SUB
-Dumb health-check
+Example of a dumb health-check
 ```
 $ ping -c3 redis.service.consul
 PING redis.service.consul (172.17.0.39): 48 data bytes
@@ -37,7 +46,7 @@ redis.service.consul [172.17.0.39] 6379 (?) open
 
 
 !SUB
-Consul's included health-checks, e.g. HTTP
+Consul's included health-checks, e.g. [HTTP, Script or TTL](https://consul.io/docs/agent/checks.html)
 
 
 !SUB
@@ -48,21 +57,19 @@ Using [Consul template](https://github.com/hashicorp/consul-template/) [with HAP
 
 
 !SLIDE
-# 5
-A/B testing
-
+# A/B testing
 
 !SUB
-Add new version of app to load-balancer
-(helloworldp-python:1.1)
-
-
+Simulate A/B test by adding both non-db and redis versions of the helloworld app to the same loadbalancer
 
 !SUB
-Extra excercise: weighted load-balancing
-
+Introduce weighted load-balancing
 
 
 !SLIDE
-# 6/extra excercise
-Feature toggles using Consul's K/V store
+# Feature toggles
+
+!SUB
+Conditionally expose functionality using feature toggles
+
+Use Consul's K/V store to enable/disable features
