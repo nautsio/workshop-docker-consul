@@ -3,5 +3,4 @@ echo 'Boot2docker box created. To access with local docker client use settings b
 echo ''
 echo "  export DOCKER_HOST=tcp://${IP_ETH0}:2375"
 echo '  unset DOCKER_TLS_VERIFY'
-echo '  unset DOCKER_CERT_PATH'
 echo ''

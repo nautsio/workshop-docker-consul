@@ -1,7 +1,6 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "dduportal/boot2docker"
+  config.vm.box = "cargonauts/boot2docker"
 
-  # Configure B2D to use consul dns settings
-  config.vm.provision "shell", path: 'consul.sh'
+  # Show Docker env variables for use with local docker client
   config.vm.provision "shell", path: 'shellinit.sh'
 end
