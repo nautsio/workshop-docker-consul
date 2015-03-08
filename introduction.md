@@ -35,7 +35,7 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 
 [Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
 
-[Docker client](https://docs.docker.com/installation/) (v1.5, optional)
+[Docker client](https://docs.docker.com/installation/) (v1.5)
 
 
 
