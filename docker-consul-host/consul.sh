@@ -4,3 +4,5 @@ DOCKER_TLS='no'
 EOT
 
 sudo /etc/init.d/docker restart
+echo "Waiting for Docker daemon to start";
+while ! docker ps &> /dev/null; do sleep 1; done
