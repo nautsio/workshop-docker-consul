@@ -25,4 +25,4 @@ Limitations, e.g. caching
 !SUB
 Load-balancing using a proxy
 
-Configured using Consule-template
+Configured using Consul-template
