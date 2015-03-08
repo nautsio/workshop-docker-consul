@@ -1,0 +1,57 @@
+Vagrant.configure("2") do |config|
+  # Override docker host with our own
+  config.vm.provider "docker" do |d|
+    d.force_host_vm       = true
+    d.vagrant_vagrantfile = "../docker-host/Vagrantfile"
+  end
+
+  config.vm.define "consul" do |consul|
+    consul.vm.provider "docker" do |d|
+      d.image = "cargonauts/consul-web"
+      d.ports = ['53:53/udp', '8500:8500']
+      d.cmd   = ['-advertise', '192.168.10.10']
+    end
+  end
+
+  config.vm.define "registrator" do |registrator|
+    registrator.vm.provider "docker" do |d|
+      d.image   = "gliderlabs/registrator"
+      d.volumes = ['/var/run/docker.sock:/tmp/docker.sock']
+      d.cmd     = ['consul://192.168.10.10:8500']
+    end
+  end
+
+  config.vm.define "redis" do |redis|
+    redis.vm.provider "docker" do |d|
+      d.image = "redis"
+      d.ports = ["6379:6379"]
+    end
+  end
+
+  config.vm.define "hellodb0" do |hellodb0|
+    hellodb0.vm.provider "docker" do |d|
+      d.image = "cargonauts/helloworld-python"
+      d.cmd   = ["/srv/helloworld-db.py"]
+      d.env   = {:SERVICE_NAME => 'hellodb'}
+      d.create_args = ['-P']
+    end
+  end
+
+  config.vm.define "hellodb1" do |hellodb1|
+    hellodb1.vm.provider "docker" do |d|
+      d.image = "cargonauts/helloworld-python"
+      d.cmd   = ["/srv/helloworld-db.py"]
+      d.env   = {:SERVICE_NAME => 'hellodb'}
+      d.create_args = ['-P']
+    end
+  end
+
+  config.vm.define "haproxy" do |haproxy|
+    haproxy.vm.provider "docker" do |d|
+      d.image = "cargonauts/consul-haproxy"
+      d.cmd   = ["-consul", "consul:8500", "-template", "/haproxy.ctmpl:/etc/haproxy/haproxy.cfg:service haproxy restart"]
+      d.ports = ["80:80"]
+    end
+  end
+
+end
