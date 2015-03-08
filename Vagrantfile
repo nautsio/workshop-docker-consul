@@ -8,16 +8,8 @@ Vagrant.configure("2") do |config|
     d.vagrant_vagrantfile = "docker-consul-host/Vagrantfile"
   end
 
-  config.vm.define "consul" do |consul|
-    consul.vm.provider "docker" do |d|
-      d.image = "cargonauts/consul-web"
-      d.cmd = ["/consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -config-dir /opt/config/ -client 0.0.0.0 -ui-dir /web-ui/dist"]
-      d.ports = ['53:53/udp', '8500:8500']
-    end
-  end
-
-  config.vm.define "helloworld" do |helloworld|
-    helloworld.vm.provider "docker" do |d|
+  config.vm.define "helloworld1" do |helloworld1|
+    helloworld1.vm.provider "docker" do |d|
       d.image = "cargonauts/helloworld-python"
       d.cmd = ["/srv/helloworld.py"]
       d.ports = ["80:80"]
