@@ -122,6 +122,12 @@ id       name    provider   state   directory
 ```
 
 !SUB
+
+So, we've created the following topology:
+![Single App](img/topology/1a_single_app.png) <!-- .element: class="noborder" -->
+
+
+!SUB
 ### But,
 ### one container doesn't make an application
 
@@ -186,6 +192,11 @@ Vagrant.configure("2") do |config|
   end
 end
 ```
+
+!SUB
+
+The result will be this topology:
+![App and DB](img/topology/1b_app_db.png) <!-- .element: class="noborder" -->
 
 
 !SUB

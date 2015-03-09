@@ -26,3 +26,8 @@ Limitations, e.g. caching
 Load-balancing using a proxy
 
 Configured using Consul-template
+
+!SUB
+
+Complete topology:
+![HAProxy](img/topology/3_haproxy.png) <!-- .element: class="noborder" -->

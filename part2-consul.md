@@ -112,6 +112,13 @@ So the service registry should be updated from outside the container
 
 
 !SUB
+
+Topology including Consul:
+![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
+
+
+
+!SUB
 Solution: listen to the Docker event stream
 
 Using Jeff Lindsay's [registrator](https://github.com/gliderlabs/registrator)
@@ -119,3 +126,9 @@ Using Jeff Lindsay's [registrator](https://github.com/gliderlabs/registrator)
 
 !SUB
 Automatically register & unregister a container using registrator
+
+!SUB
+
+We've added Registrator to the topology:
+![Consul and Registrator](img/topology/2b_registrator.png) <!-- .element: class="noborder" -->
+
