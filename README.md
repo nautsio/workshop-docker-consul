@@ -1,1 +1,3 @@
-# meetup-automating-the-modern-datacenter
+# Automating the modern datacenter
+
+Slides for Mitchell Hashimoto @ Xebia - hands-on session
