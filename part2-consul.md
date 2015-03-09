@@ -141,21 +141,36 @@ PING consul.service.consul (172.17.0.6): 48 data bytes
 round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
 ```
 
+
+!SUB
+Since we've added `consul.service` as a search domain we can also reach a service without the `consul.service` postfix
+```
+root@fc2959ba5207:/# ping -c 3 consul #without the .consul.service postfix
+PING consul (172.17.0.6): 48 data bytes
+56 bytes from 172.17.0.6: icmp_seq=0 ttl=64 time=0.052 ms
+56 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.164 ms
+56 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.189 ms
+--- consul ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
+```
+
+
 !SUB
 We can use the `dig` tool to view DNS records
 ```
-root@fc2959ba5207:/# dig consul.service.consul
-; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> consul.service.consul
+root@fc2959ba5207:/# dig consul
+; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> consul
 ;; global options: +cmd
 ;; Got answer:
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 2476
 ;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
 ;; QUESTION SECTION:
-;consul.service.consul.		IN	A
+;consul.		              IN	A
 
 ;; ANSWER SECTION:
-consul.service.consul.	0	IN	A	172.17.0.6
+consul.               	0	IN	A	172.17.0.6
 
 ;; Query time: 2 msec
 ;; SERVER: 172.17.42.1#53(172.17.42.1)
@@ -167,7 +182,7 @@ consul.service.consul.	0	IN	A	172.17.0.6
 !SUB
 Manually add a service to Consul
 ```
-root@fc2959ba5207:/# curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
+root@fc2959ba5207:/# curl -X POST http://consul:8500/v1/agent/service/register \
   --header 'Content-Type: application/json' \
   --data-binary '{"ID": "manualapp1", "Name": "manualapp", "Address": "123.4.5.6", "Port": 8888}'
 ```
