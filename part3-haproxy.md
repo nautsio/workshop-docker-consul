@@ -191,12 +191,12 @@ config.vm.define "helloworld" do |helloworld|
   helloworld.vm.provider "docker" do |d|
     d.image = "cargonauts/helloworld-python"
     d.cmd = ["/srv/helloworld.py"]
-    d.env   = {:SERVICE_NAME => 'hellodb'} # assign service name
-    d.create_args = ['-P']                 # publish container
+    d.env   = {:SERVICE_NAME => 'hellodb'} # do not forget to
+                                           # assign service name
+    d.create_args = ['-P']                 # and publish container
                                            # on random port
   end
 end
 ```
-Make sure you add a SERVICE_NAME,<br>and publish it on a random port
 
 See if HAProxy is updated by<br>visiting [192.168.10.10](http://192.168.10.10) multiple times
