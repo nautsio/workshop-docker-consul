@@ -12,10 +12,21 @@ But here's one anyway
 !SUB
 ### Vagrant features
 
+ - Easy to configure, reproducible, and portable work environments
+ - Provisions on top of VirtualBox, VMware, AWS, or any other provider
+ - Install software with tools such as shell scripts, Chef, or Puppet
+
+[_vagrantup.com_](https://www.vagrantup.com/)
+
 
 !SUB
 ### Vagrant works with
 
+ - Configuration with Vagrantfile
+ - Providers (VirtualBox, VMware, AWS, Docker, ...)
+ - Provisioners (Shell, Puppet, Chef, Salt, ...)
+
+[_Vagrant Docs_](https://docs.vagrantup.com/v2/)
 
 
 !SLIDE
