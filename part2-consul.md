@@ -42,40 +42,36 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SUB
-No hardcoded links from app to dependencies
+### Consul Service Discovery interfaces
 
-i.e. no:
-```
-redis = Redis(host='123.4.5.6', port=6379)
-```
+- DNS: Simple, no changes to application needed, legacy-friendly
+- HTTP: For richer metadata
 
 
 !SUB
-Docker links are limited
+### Docker with Consul DNS based Service Discovery
+Docker can supply [custom DNS configurations](https://docs.docker.com/articles/networking/#configuring-dns) to containers
 
-- No cross host linking
-- Can only link to 1 other container under a (service)name
-- Can't update after the container is running
-
-
-!SUB
-Need service registry
-
-## Consul :)
+This allows us to use the DNS Service Discovery interface provided by Consul with all our containers
 
 
 !SUB
-Simplest way is using DNS:
+### Docker settings
+For Consul's DNS based Service Discovery
 
-- Start Docker daemon with extra parameter: `--dns <IP of docker0>`
+- Start Docker daemon with extra parameter: `--dns <IP of docker0>` <small>(this has already been done in the Docker host image we're using)</small>
 - Bind Consul as DNS server to the Docker host
 
 
 !SUB
-Start Consul in a container
+### Bind Consul as a DNS server to the Docker host
 ```
 docker run -d -p 53:53/udp -p 8500:8500 cargonauts/consul-dns /consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -config-dir /opt/config/ -client 0.0.0.0
 ```
+
+- `-p 53:53` publishes Consul's DNS port to the Docker host
+- `-client 0.0.0.0` binds Consul's client interfaces (DNS, HTTP) to the Docker host
+- `-p 8500:8500` publishes Consul's HTTP endpoint to the Docker host)
 
 
 !SUB
@@ -86,7 +82,12 @@ CONTAINER ID        IMAGE                                 COMMAND               
 78f209ea00ba        cargonauts/consul-dns:latest          "/bin/sh -c '/consul   3 seconds ago       Up 1 seconds        0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   condescending_payne
 ```
 
-WebUI @ http://DOCKERHOSTIP:8500
+
+!SUB
+### Consul WebUI
+As we've also published Consul's HTTP interface to the Docker host we can access Consul's WebUI at
+
+[192.168.10.10:8500](http://192.168.10.10:8500)
 
 
 !SUB

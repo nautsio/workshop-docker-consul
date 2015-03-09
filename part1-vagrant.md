@@ -28,7 +28,7 @@ But here's one anyway
 
 
 !SUB
-## Vagrant & Docker
+### Vagrant & Docker
 
 Vagrant has a [Docker provider](http://docs.vagrantup.com/v2/docker/)
 
@@ -90,7 +90,7 @@ Bringing machine 'helloworld' up with 'docker' provider...
 
 
 !SUB
-## What just happened?
+### What just happened?
 We asked Vagrant to start a container
 
 Vagrant first started a Docker host
@@ -142,8 +142,8 @@ id       name    provider   state   directory
 470264f  default virtualbox running /Users/simon/dev/meetup-automating-the-modern-datacenter-master/docker-host
 ```
 
-!SUB
 
+!SUB
 So, we've created the following topology:
 ![Single App](img/topology/1a_single_app.png) <!-- .element: class="noborder" -->
 
@@ -257,7 +257,7 @@ But the app can't find the database :(
 
 
 !SUB
-## What just happened?
+### What just happened?
 The application container can't find the database container
 
 They need a mechanism to find each other
@@ -273,14 +273,14 @@ They need a mechanism to find each other
 
 
 !SUB
-## Docker links
+### Docker links
 - Rely on named containers
 - Allows the recipient container to read data about and connect to the source container
 
 
 !SUB
-## Docker links
-### technical details
+### Docker links
+#### technical details
 The Docker links functionality works by adding the following to the recipient container
 
 - Environment variables for the source container's ports
@@ -344,7 +344,15 @@ Check if the application works, visit [192.168.10.10](http://192.168.10.10)
 
 
 !SUB
-## What just happened?
+### What just happened?
 - The `redis` container is started with the name `redis`
 - The `hellodb` container is started and Docker adds the hostname `redis` and it's matching container IP to the `/etc/hosts` file
 - The `hellodb` application can connect to `redis:6379`
+
+
+!SUB
+### But, Docker links are limited
+
+- Linking only works within one Docker host
+- As linking works by using container names, you can only link to one container under a (service)name
+- Once the container is running the links won't update
