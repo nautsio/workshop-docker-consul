@@ -74,7 +74,7 @@ Consul also has an optional Web Interface
 
 It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
 
-[192.168.10.10:8500](http://192.168.10.10:8500)
+[192.168.190.85:8500](http://192.168.190.85:8500)
 
 
 !SUB
@@ -182,7 +182,7 @@ adad6ed2d591        cargonauts/helloworld-python:latest   "/srv/helloworld-db.  
 ```
 
 !SUB
-Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 
 !SUB
