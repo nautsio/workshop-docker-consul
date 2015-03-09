@@ -234,6 +234,7 @@ The result will be this topology:
 
 
 !SUB
+### Exercise
 Start the Dockerized apps
 ```
 $ cd part1b
@@ -327,6 +328,7 @@ end
 
 
 !SUB
+### Exercise
 Start the linked Dockerized apps
 ```
 $ cd part1c

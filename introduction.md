@@ -18,11 +18,10 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 !SUB
 ## Menu for today
 
-- Use Vagrant to orchestrate Docker containers
+- Orchestrate Docker containers using Vagrant
 - Use Consul for service discovery
-- Do load-balancing of a service
-- Use healt-checks to update the service registry
-
+- Configure dynamic load-balancing with HAProxy
+- For the quick: Health-checks / A/B Testing / Feature toggles
 
 
 !SLIDE

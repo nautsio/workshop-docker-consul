@@ -219,23 +219,46 @@ curl -X POST \
 ### part2b
 ![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
 
-## Automatic Service Discovery using Consul
+## Automatic Service Discovery using Service Wrapper
 
 
 !SUB
-Automatically registering a service
+Wrapper script for Redis service to (de)register with Consul
+```
+#!/usr/bin/env bash
+export CONTAINERIP=$(hostname -I | cut -f1 -d' ')
 
-Register from within the container after the process has started
+function deregister() {
+    echo "Trapping exit"
+    curl -X POST http://consul.service.consul:8500/v1/agent/service/deregister/redis-$HOSTNAME \
+        --header 'Content-Type: application/json'
+    kill -SIGTERM -1
+}
+trap "deregister" EXIT
+
+# start app
+/entrypoint.sh redis-server &
+
+# register with consul
+curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
+    --header 'Content-Type: application/json' \
+    --data-binary '{"ID": "'"redis-$HOSTNAME"'", "Name": "redis", "Address": "'"$CONTAINERIP"'", "Port": 6379}'
+
+while true; do :; done
 ```
-$ docker run -d redis-with-wrapper
-```
-Check WebUI for new service
 
 
 !SUB
-Start the Dockerized Consul, app and database 
+Script will automatically registering a service
+
+Script will (try) to deregister when service is stopped
+
+
+!SUB
+### Exercise
+Start the Dockerized Consul, app and database
 ```
-$ cd part2a
+$ cd part2b
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
@@ -256,45 +279,55 @@ redis                     running (docker)
 hellodb                   running (docker)
 
 $ docker ps
-CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                NAMES
-adad6ed2d591        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   part1b_hellodb_1425834932
-9495f0cbe1f7        redis:latest                          "/entrypoint.sh redi   2 minutes ago        Up 2 minutes        6379/tcp             part1b_redis_1425834915
-78f209ea00ba        cargonauts/consul-web:latest          "/consul agent -serv   3 seconds ago        Up 1 seconds        0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   condescending_payne
+CONTAINER ID        IMAGE                                 COMMAND                CREATED             STATUS              PORTS                                        NAMES
+d2ae67636d87        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   5 seconds ago       Up 5 seconds        0.0.0.0:80->80/tcp                           part2b_hellodb_1425939265
+acf83ec7d53e        725aaab11629                          "/redis-wrapper.sh"    7 seconds ago       Up 6 seconds        6379/tcp                                     part2b_redis_1425939263
+2f619284f361        cargonauts/consul-web:latest          "/consul agent -serv   8 seconds ago       Up 8 seconds        0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   part2b_consul_1425939262
 ```
 
 !SUB
 Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
+Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service
 
 !SUB
-Topology including Consul:
+So, now we've added Consul to our topology:
 ![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
 
 
 !SUB
-Stopping the container doesn't unregister it
+### Exercise
+Stopping the container unregisters it
 ```
-$ docker stop CONTAINERID
+$ vagrant halt redis
+==> redis: Stopping container...
 ```
-Check webUI, service is still there
+Check [Consul Web UI](http://192.168.190.85:8500/) to see the service is removed
 
 
 !SUB
-servicewrapper to register & unregister
+However, killing the container does not unregister it
 ```
-$ docker stop
-# works
-$ docker kill
-# doesn't
+$ vagrant up redis
+Bringing machine 'redis' up with 'docker' provider...
+
+$ docker ps
+CONTAINER ID        IMAGE                                 COMMAND                CREATED             STATUS                  PORTS                                        NAMES
+83ba3eeebb09        8aadfc5033d3                          "/redis-wrapper.sh"    1 seconds ago       Up Less than a second   6379/tcp                                     part2b_redis_1425939638
+d2ae67636d87        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   6 minutes ago       Up 6 minutes            0.0.0.0:80->80/tcp                           part2b_hellodb_1425939265
+2f619284f361        cargonauts/consul-web:latest          "/consul agent -serv   6 minutes ago       Up 6 minutes            0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   part2b_consul_1425939262
+
+# Force kill Redis container
+$ docker kill 83ba3eeebb09
+83ba3eeebb09
 ```
+Check [Consul Web UI](http://192.168.190.85:8500/) to see the service is still there
 
 
 !SUB
-Can't guarantee cleanup from within a container
+Conclusion: Can't guarantee cleanup from within a container
 
 So the service registry should be updated from outside the container
-
-
 
 
 
@@ -315,6 +348,44 @@ Automatically register & unregister a container using registrator
 
 !SUB
 
-We've added Registrator to the topology:
+We've replaces the service wrapper script<br>with Registrator in the topology:
 ![Consul and Registrator](img/topology/2b_registrator.png) <!-- .element: class="noborder" -->
+
+
+!SUB
+### Exercise
+Start the Consul, Regsitrator, app and database
+```
+$ cd part2c
+# Start the containers
+$ vagrant up --no-parallel
+Bringing machine 'consul' up with 'docker' provider...
+Bringing machine 'registrator' up with 'docker' provider...
+Bringing machine 'redis' up with 'docker' provider...
+Bringing machine 'hellodb' up with 'docker' provider...
+```
+
+
+!SUB
+Check if the containers are running
+```
+$ vagrant status
+Current machine states:
+consul                    running (docker)
+registrator               running (docker)
+redis                     running (docker)
+hellodb                   running (docker)
+
+$ docker ps
+CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                                        NAMES
+8d03c3af593e        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp                           part2c_hellodb_1425940254
+97684b24fbb2        redis:latest                          "/entrypoint.sh redi   About a minute ago   Up About a minute   0.0.0.0:6379->6379/tcp                       part2c_redis_1425940253
+ddfccf6a0076        gliderlabs/registrator:latest         "/bin/registrator co   About a minute ago   Up About a minute                                                part2c_registrator_1425940251
+67a309668d3f        cargonauts/consul-web:latest          "/consul agent -serv   About a minute ago   Up About a minute   0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   part2c_consul_1425940250
+```
+
+!SUB
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
+
+Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service, now created by Registrator!
 
