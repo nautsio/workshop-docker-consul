@@ -54,6 +54,56 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SUB
+Manually add a service to Consul
+```
+curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
+  --header 'Content-Type: application/json' \
+  --data-binary '{"ID": "helloworld1", "Name": "helloworld", "Address": "123.4.5.6", "Port": 80}'
+```
+& check if it's registered
+```
+docker run -ti cargonauts/toolbox
+$ dig helloworld.service.consul +short
+123.4.5.6
+```
+
+
+!SUB
+### Consul WebUI
+Consul also has an optional Web Interface
+
+It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
+
+[192.168.10.10:8500](http://192.168.10.10:8500)
+
+
+!SUB
+Remove the manually created service
+```
+curl -X POST \
+	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
+```
+
+
+
+!SLIDE
+### part2b
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+
+## Automatic Service Discovery using Consul
+
+
+!SUB
+Automatically registering a service
+
+Register from within the container after the process has started
+```
+$ docker run -d redis-with-wrapper
+```
+Check WebUI for new service
+
+
+!SUB
 ### Docker with Consul DNS based Service Discovery
 Docker can supply [custom DNS configurations](https://docs.docker.com/articles/networking/#configuring-dns) to containers
 
@@ -136,50 +186,6 @@ Check if the application works, visit [192.168.10.10](http://192.168.10.10)
 
 
 !SUB
-### Consul WebUI
-Consul also has an optional Web Interface
-
-It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
-
-[192.168.10.10:8500](http://192.168.10.10:8500)
-
-
-!SUB
-Manually add a service to Consul
-```
-curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
-  --header 'Content-Type: application/json' \
-  --data-binary '{"ID": "helloworld1", "Name": "helloworld", "Address": "123.4.5.6", "Port": 80}'
-```
-& check if it's registered
-```
-docker run -ti cargonauts/toolbox
-$ dig helloworld.service.consul +short
-123.4.5.6
-```
-
-WebUI @ http://DOCKERHOSTIP:8500
-
-
-!SUB
-Remove the manually created service
-```
-curl -X POST \
-	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
-```
-
-
-!SUB
-Automatically registering a service
-
-Register from within the container after the process has started
-```
-$ docker run -d redis-with-wrapper
-```
-Check WebUI for new service
-
-
-!SUB
 Topology including Consul:
 ![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
 
@@ -212,7 +218,7 @@ So the service registry should be updated from outside the container
 
 
 !SLIDE
-### part2b
+### part2c
 ![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
 ## Automatic Service Discovery using Consul and Registrator
 
