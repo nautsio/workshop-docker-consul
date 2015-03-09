@@ -19,6 +19,7 @@ But here's one anyway
 
 
 !SLIDE
+### part1a
 ![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 ![plus](img/plus.png) <!-- .element: class="noborder" -->
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
@@ -155,6 +156,7 @@ So, we've created the following topology:
 
 
 !SLIDE
+### part1b
 ![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 ![plus](img/plus.png) <!-- .element: class="noborder" -->
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
@@ -265,6 +267,7 @@ They need a mechanism to find each other
 
 
 !SLIDE
+### part1c
 ![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 ![plus](img/plus.png) <!-- .element: class="noborder" -->
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
