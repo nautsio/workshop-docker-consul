@@ -172,7 +172,7 @@ Bringing machine 'haproxy' up with 'docker' provider...
 
 
 !SUB
-Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 
 !SUB
@@ -199,4 +199,4 @@ config.vm.define "helloworld" do |helloworld|
 end
 ```
 
-See if HAProxy is updated by<br>visiting [192.168.10.10](http://192.168.10.10) multiple times
+See if HAProxy is updated by<br>visiting [192.168.190.85](http://192.168.190.85) multiple times

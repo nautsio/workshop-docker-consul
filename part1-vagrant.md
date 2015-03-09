@@ -1,5 +1,5 @@
 # Vagrant
-![PVagrant](img/vagrant-logo.png) <!-- .element: class="noborder" -->
+![Vagrant](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 
 
 !SUB
@@ -111,7 +111,7 @@ helloworld                running (docker)
 Check if the container is running with your local Docker client
 ```
 # Set Docker environment variables
-$ export DOCKER_HOST=tcp://192.168.10.10:2375
+$ export DOCKER_HOST=tcp://192.168.190.85:2375
 $ unset DOCKER_TLS_VERIFY
 
 $ docker ps
@@ -120,7 +120,7 @@ b7bf2504cd83        cargonauts/helloworld-python:latest   "/srv/helloworld.py"  
 ```
 
 !SUB
-Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 
 !SUB
@@ -250,7 +250,7 @@ adad6ed2d591        cargonauts/helloworld-python:latest   "/srv/helloworld-db.  
 ```
 
 !SUB
-Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 
 !SUB
@@ -343,7 +343,7 @@ ecb6198a819b        redis:latest                          "/entrypoint.sh redi  
 
 
 !SUB
-Check if the application works, visit [192.168.10.10](http://192.168.10.10)
+Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 
 !SUB
