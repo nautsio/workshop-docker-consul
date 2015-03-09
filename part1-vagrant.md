@@ -1,3 +1,24 @@
+# Vagrant
+![PVagrant](img/vagrant-logo.png) <!-- .element: class="noborder" -->
+
+
+!SUB
+## Vagrant introduction
+Vagrant needs no introduction ;)
+
+But here's one anyway
+
+
+!SUB
+### Vagrant features
+
+
+!SUB
+### Vagrant works with
+
+
+
+!SLIDE
 ![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
 ![plus](img/plus.png) <!-- .element: class="noborder" -->
 ![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
