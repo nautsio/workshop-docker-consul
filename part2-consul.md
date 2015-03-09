@@ -54,56 +54,6 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SUB
-Manually add a service to Consul
-```
-curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
-  --header 'Content-Type: application/json' \
-  --data-binary '{"ID": "helloworld1", "Name": "helloworld", "Address": "123.4.5.6", "Port": 80}'
-```
-& check if it's registered
-```
-docker run -ti cargonauts/toolbox
-$ dig helloworld.service.consul +short
-123.4.5.6
-```
-
-
-!SUB
-### Consul WebUI
-Consul also has an optional Web Interface
-
-It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
-
-[192.168.10.10:8500](http://192.168.10.10:8500)
-
-
-!SUB
-Remove the manually created service
-```
-curl -X POST \
-	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
-```
-
-
-
-!SLIDE
-### part2b
-![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
-
-## Automatic Service Discovery using Consul
-
-
-!SUB
-Automatically registering a service
-
-Register from within the container after the process has started
-```
-$ docker run -d redis-with-wrapper
-```
-Check WebUI for new service
-
-
-!SUB
 ### Docker with Consul DNS based Service Discovery
 Docker can supply [custom DNS configurations](https://docs.docker.com/articles/networking/#configuring-dns) to containers
 
@@ -149,6 +99,116 @@ Vagrant.configure("2") do |config|
 ...
 end
 ```
+
+
+!SUB
+### Part2a Exercise
+
+
+!SUB
+Start the Dockerized Consul
+```
+$ cd part2a
+# Start the container
+$ vagrant up
+Bringing machine 'consul' up with 'docker' provider...
+==> consul: Docker host is required. One will be created if necessary...
+    consul: Docker host VM is already ready.
+    ...
+```
+And start a container with the necessary tools
+```
+$ docker run -ti cargonauts/toolbox-networking
+```
+
+
+!SUB
+Now we can see if the Consul DNS service works
+```
+root@fc2959ba5207:/# ping -c 3 consul.service.consul
+PING consul.service.consul (172.17.0.6): 48 data bytes
+56 bytes from 172.17.0.6: icmp_seq=0 ttl=64 time=0.052 ms
+56 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.164 ms
+56 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.189 ms
+--- consul.service.consul ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
+```
+
+!SUB
+We can use the `dig` tool to view DNS records
+```
+root@fc2959ba5207:/# dig consul.service.consul
+; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> consul.service.consul
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 2476
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;consul.service.consul.		IN	A
+
+;; ANSWER SECTION:
+consul.service.consul.	0	IN	A	172.17.0.6
+
+;; Query time: 2 msec
+;; SERVER: 172.17.42.1#53(172.17.42.1)
+;; WHEN: Mon Mar  9 19:20:44 2015
+;; MSG SIZE  rcvd: 76
+```
+
+
+!SUB
+Manually add a service to Consul
+```
+root@fc2959ba5207:/# curl -X POST http://consul.service.consul:8500/v1/agent/service/register \
+  --header 'Content-Type: application/json' \
+  --data-binary '{"ID": "manualapp1", "Name": "manualapp", "Address": "123.4.5.6", "Port": 8888}'
+```
+
+
+!SUB
+Now check if we can find our new service
+```
+
+$ dig helloworld.service.consul +short
+123.4.5.6
+```
+
+
+!SUB
+### Consul WebUI
+Consul also has an optional Web Interface
+
+It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
+
+[192.168.10.10:8500](http://192.168.10.10:8500)
+
+
+!SUB
+Remove the manually created service
+```
+curl -X POST \
+	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
+```
+
+
+
+!SLIDE
+### part2b
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+
+## Automatic Service Discovery using Consul
+
+
+!SUB
+Automatically registering a service
+
+Register from within the container after the process has started
+```
+$ docker run -d redis-with-wrapper
+```
+Check WebUI for new service
 
 
 !SUB
