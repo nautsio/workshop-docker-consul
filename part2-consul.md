@@ -1,3 +1,4 @@
+### part2
 # Consul
 ![Consul logo](img/consul-logo.png) <!-- .element: class="noborder" -->
 
@@ -36,7 +37,8 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SLIDE
-![Consul logo](img/consul-servicediscovery1.png) <!-- .element: class="noborder" -->
+### part2a
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
 
 ## service discovery using Consul
 
@@ -46,6 +48,9 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 - DNS: Simple, no changes to application needed, legacy-friendly
 - HTTP: For richer metadata
+
+
+<br>We'll be using Consul's DNS interface for this example
 
 
 !SUB
@@ -65,13 +70,66 @@ For Consul's DNS based Service Discovery
 
 !SUB
 ### Bind Consul as a DNS server to the Docker host
+To bind Consul's DNS service to the Docker host we have to do the following with the Consul container
+
+- Publish Consul's DNS port to the Docker host (Docker: `-p 53:53`)
+- Publish Consul's HTTP endpoint to the Docker host (Docker: `-p 8500:8500`)
+
+
+!SUB
+### Bind Consul as a DNS server to the Docker host
+We also have to tell Consul to bind it's DNS and HTTP interfaces to the Docker host
+
+We do this by adding the `-client 0.0.0.0` argument to Consul
+
+<small>(this has already been done in the [cargonauts/consul-web image](https://registry.hub.docker.com/u/cargonauts/consul-web/) we're using)</small>
+
+
+!SUB
+Example `Vagrantfile`
 ```
-docker run -d -p 53:53/udp -p 8500:8500 cargonauts/consul-dns /consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -config-dir /opt/config/ -client 0.0.0.0
+Vagrant.configure("2") do |config|
+...
+  config.vm.define "consul" do |consul|
+    consul.vm.provider "docker" do |d|
+      d.image = "cargonauts/consul-web"
+      d.ports = ['53:53/udp', '8500:8500']
+    end
+  end
+...
+end
 ```
 
-- `-p 53:53` publishes Consul's DNS port to the Docker host
-- `-client 0.0.0.0` binds Consul's client interfaces (DNS, HTTP) to the Docker host
-- `-p 8500:8500` publishes Consul's HTTP endpoint to the Docker host)
+
+!SUB
+Start the Dockerized Consul, app and database 
+```
+$ cd part2a
+# Start the containers
+$ vagrant up --no-parallel
+Bringing machine 'redis' up with 'docker' provider...
+Bringing machine 'hellodb' up with 'docker' provider...
+==> redis: Docker host is required. One will be created if necessary...
+    redis: Docker host VM is already ready.
+```
+
+
+!SUB
+Check if the containers are running
+```
+$ vagrant status
+Current machine states:
+redis                     running (docker)
+hellodb                   running (docker)
+
+$ docker ps
+CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                NAMES
+adad6ed2d591        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   part1b_hellodb_1425834932
+9495f0cbe1f7        redis:latest                          "/entrypoint.sh redi   2 minutes ago        Up 2 minutes        6379/tcp             part1b_redis_1425834915
+```
+
+!SUB
+Check if the application works, visit [192.168.10.10](http://192.168.10.10)
 
 
 !SUB
@@ -126,12 +184,16 @@ Check WebUI for new service
 
 
 !SUB
+Topology including Consul:
+![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
+
+
+!SUB
 Stopping the container doesn't unregister it
 ```
 $ docker stop CONTAINERID
 ```
 Check webUI, service is still there
-
 
 
 !SUB
@@ -150,11 +212,13 @@ Can't guarantee cleanup from within a container
 So the service registry should be updated from outside the container
 
 
-!SUB
 
-Topology including Consul:
-![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
 
+
+!SLIDE
+### part2b
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+## Automatic Service Discovery using Consul and Registrator
 
 
 !SUB
