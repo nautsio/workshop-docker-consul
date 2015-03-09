@@ -107,10 +107,11 @@ Start the Dockerized Consul, app and database
 $ cd part2a
 # Start the containers
 $ vagrant up --no-parallel
+Bringing machine 'consul' up with 'docker' provider...
 Bringing machine 'redis' up with 'docker' provider...
 Bringing machine 'hellodb' up with 'docker' provider...
-==> redis: Docker host is required. One will be created if necessary...
-    redis: Docker host VM is already ready.
+==> consul: Docker host is required. One will be created if necessary...
+    consul: Docker host VM is already ready.
 ```
 
 
@@ -119,6 +120,7 @@ Check if the containers are running
 ```
 $ vagrant status
 Current machine states:
+consul                    running (docker)
 redis                     running (docker)
 hellodb                   running (docker)
 
@@ -126,6 +128,7 @@ $ docker ps
 CONTAINER ID        IMAGE                                 COMMAND                CREATED              STATUS              PORTS                NAMES
 adad6ed2d591        cargonauts/helloworld-python:latest   "/srv/helloworld-db.   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   part1b_hellodb_1425834932
 9495f0cbe1f7        redis:latest                          "/entrypoint.sh redi   2 minutes ago        Up 2 minutes        6379/tcp             part1b_redis_1425834915
+78f209ea00ba        cargonauts/consul-web:latest          "/consul agent -serv   3 seconds ago        Up 1 seconds        0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   condescending_payne
 ```
 
 !SUB
@@ -133,17 +136,10 @@ Check if the application works, visit [192.168.10.10](http://192.168.10.10)
 
 
 !SUB
-Check that Consul is running
-```
-$ docker ps
-CONTAINER ID        IMAGE                                 COMMAND                CREATED             STATUS              PORTS                                        NAMES
-78f209ea00ba        cargonauts/consul-dns:latest          "/bin/sh -c '/consul   3 seconds ago       Up 1 seconds        0.0.0.0:53->53/udp, 0.0.0.0:8500->8500/tcp   condescending_payne
-```
-
-
-!SUB
 ### Consul WebUI
-As we've also published Consul's HTTP interface to the Docker host we can access Consul's WebUI at
+Consul also has an optional Web Interface
+
+It's available at the same port as Consul's HTTP interface, which we've published to the Docker host at
 
 [192.168.10.10:8500](http://192.168.10.10:8500)
 
