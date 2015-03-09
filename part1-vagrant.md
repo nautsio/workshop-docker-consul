@@ -284,7 +284,7 @@ They need a mechanism to find each other
 The Docker links functionality works by adding the following to the recipient container
 
 - Environment variables for the source container's ports
-  - For example `<name>_PORT_<port>_<protocol>`
+  - For example `<NAME>_PORT_<PORT#>_<PROTOCOL>`
 - Name and IP of the source container to the `/etc/hosts` file
 
 
