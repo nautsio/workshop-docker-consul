@@ -243,10 +243,17 @@ They need a mechanism to find each other
 !SUB
 ## Docker links
 - Rely on named containers
-- Allows the recipient to read data about and connect to the source
-- This is achieved by
-  - Adding environment variables, for example `<name>_PORT_<port>_<protocol>`
-  - Add the name and IP of the source to the recipients `/etc/hosts` file
+- Allows the recipient container to read data about and connect to the source container
+
+
+!SUB
+## Docker links
+### technical details
+The Docker links functionality works by adding the following to the recipient container
+
+- Environment variables for the source container's ports
+  - For example `<name>_PORT_<port>_<protocol>`
+- Name and IP of the source container to the `/etc/hosts` file
 
 
 !SUB
@@ -306,6 +313,6 @@ Check if the application works, visit [192.168.10.10](http://192.168.10.10)
 
 !SUB
 ## What just happened?
-- The redis container was spawned with the name "redis"
-- On hellodb's creation Docker adds a line it's `/etc/hosts` file which maps the hostname "redis" to the matching IP address
-- The hellodb application connects to "redis:6379" which with the help of the value in the `/etc/hosts` file gets mapped to the IP address of the redis container
+- The `redis` container is started with the name `redis`
+- The `hellodb` container is started and Docker adds the hostname `redis` and it's matching container IP to the `/etc/hosts` file
+- The `hellodb` application can connect to `redis:6379`
