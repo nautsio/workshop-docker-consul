@@ -3,7 +3,7 @@
 # Xebia
 ## Hands-on session
 
-Slides: [xebia.github.io/meetup-automating-the-modern-datacenter](http://xebia.github.io/meetup-automating-the-modern-datacenter)
+Slides: [cargonauts.io/mitchellh-auto-dc](http://cargonauts.io/mitchellh-auto-dc)
 
 Adé Mochtar - [amochtar@xebia.com](mailto:amochtar@xebia.com)
 
@@ -42,8 +42,8 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 !SUB
 Get the files
 
-[https://github.com/xebia/meetup-automating-the-modern-datacenter](https://github.com/xebia/meetup-automating-the-modern-datacenter)
+[https://github.com/cargonauts/mitchellh-auto-dc](https://github.com/cargonauts/mitchellh-auto-dc)
 ```
-$ git clone https://github.com/xebia/meetup-automating-the-modern-datacenter.git
-$ cd meetup-automating-the-modern-datacenter
+$ git clone https://github.com/cargonauts/mitchellh-auto-dc.git
+$ cd mitchellh-auto-dc
 ```
