@@ -173,6 +173,7 @@ Bringing machine 'haproxy' up with 'docker' provider...
 
 !SUB
 Check if the application works, visit [192.168.190.85](http://192.168.190.85)
+
 Check some fancy HAProxy stats, visit [192.168.190.85/?stats](http://192.168.190.85/?stats)
 
 
