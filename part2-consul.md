@@ -148,9 +148,9 @@ round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
 
 
 !SUB
-Since we've added `consul.service` as a search domain we can also reach a service without the `consul.service` postfix
+Since we've added `service.consul` as a search domain we can also reach a service without the `consul.service` postfix
 ```
-root@fc2959ba5207:/# ping -c 3 consul #without the .consul.service postfix
+root@fc2959ba5207:/# ping -c 3 consul #without the service.consul postfix
 PING consul.service.consul (172.17.0.8): 48 data bytes
 56 bytes from 172.17.0.8: icmp_seq=0 ttl=64 time=0.042 ms
 56 bytes from 172.17.0.8: icmp_seq=1 ttl=64 time=0.074 ms
@@ -162,7 +162,7 @@ round-trip min/avg/max/stddev = 0.042/0.063/0.074/0.000 ms
 
 
 !SUB
-We can use the `nslookup` tool to view DNS records
+We can use `nslookup` to check the DNS records
 ```
 root@fc2959ba5207:/# nslookup consul
 Server:   172.17.42.1
@@ -174,20 +174,24 @@ Address: 172.17.0.8
 
 
 !SUB
-Manually add a service to Consul
+Use Consul's HTTP interface to register a service
 ```
-root@fc2959ba5207:/# curl -X POST http://consul:8500/v1/agent/service/register \
+root@fc2959ba5207:/# curl  -X POST  -w "%{http_code}\n" http://consul:8500/v1/agent/service/register \
   --header 'Content-Type: application/json' \
   --data-binary '{"ID": "manualapp1", "Name": "manualapp", "Address": "123.4.5.6", "Port": 8888}'
+200
 ```
 
 
 !SUB
 Now check if we can find our new service
 ```
+root@fc2959ba5207:/# nslookup manualapp
+Server:   172.17.42.1
+Address:  172.17.42.1#53
 
-$ dig helloworld.service.consul +short
-123.4.5.6
+Name: manualapp.service.consul
+Address: 123.4.5.6
 ```
 
 
