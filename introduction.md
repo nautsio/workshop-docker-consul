@@ -46,3 +46,33 @@ Get the files
 $ git clone https://github.com/cargonauts/mitchellh-auto-dc.git
 $ cd mitchellh-auto-dc
 ```
+
+!SUB
+## Notes
+1. Make sure you do not start the containers in parallel
+
+  ```
+  # Globally disable Vagrant's parallel executions
+  export VAGRANT_NO_PARALLEL=true
+  ```
+
+  or
+
+  ```
+  # Add no parallel flag for every vagrant up
+  vagrant up --no-parallel
+  ```
+
+  <small>Two reasons for this
+
+  * Docker issue with pulling images concurrently: [Boot2docker issue #757](https://github.com/boot2docker/boot2docker/issues/757) / [Docker issue #9718](https://github.com/docker/docker/issues/9718)
+  * For some exercises there are dependencies between containers
+
+  </small>
+
+
+2. Before moving to a new part, destroy the current one
+
+    ```
+    vagrant destroy -f
+    ```
