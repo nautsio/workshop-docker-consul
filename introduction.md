@@ -70,7 +70,6 @@ $ cd mitchellh-auto-dc
 
   </small>
 
-
 2. Before moving to a new part, destroy the current one
 
     ```
