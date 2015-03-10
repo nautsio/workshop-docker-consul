@@ -24,6 +24,14 @@ Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
 - For the quick: Health-checks / A/B Testing / Feature toggles
 
 
+!SUB
+## Hands-on guidelines
+- Form groups of 6-8 people
+- Help each other out
+- The slides should guide you
+- The guys in purple are there to help you out as well ;)
+
+
 !SLIDE
 # Setup
 
