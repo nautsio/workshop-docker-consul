@@ -9,19 +9,29 @@ Vagrant.configure("2") do |config|
     consul.vm.provider "docker" do |d|
       d.image = "cargonauts/consul-web"
       d.ports = ['53:53/udp', '8500:8500']
+      d.cmd   = ['-advertise', '192.168.190.85']
+    end
+  end
+
+  config.vm.define "registrator" do |registrator|
+    registrator.vm.provider "docker" do |d|
+      d.image   = "gliderlabs/registrator"
+      d.volumes = ['/var/run/docker.sock:/tmp/docker.sock']
+      d.cmd     = ['consul://192.168.190.85:8500']
     end
   end
 
   config.vm.define "redis" do |redis|
     redis.vm.provider "docker" do |d|
-      d.build_dir = "redis-wrapper"
+      d.image = "redis"
+      d.ports = ["6379:6379"]
     end
   end
 
   config.vm.define "hellodb" do |hellodb|
     hellodb.vm.provider "docker" do |d|
       d.image = "cargonauts/helloworld-python"
-      d.cmd = ["/srv/helloworld-db.py"]
+      d.cmd   = ["/srv/helloworld-db.py"]
       d.ports = ["80:80"]
     end
   end
