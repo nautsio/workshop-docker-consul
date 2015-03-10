@@ -412,5 +412,5 @@ ddfccf6a0076        gliderlabs/registrator:latest         "/bin/registrator co  
 !SUB
 Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
-Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service, now created by Registrator!
+Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service, now automatically created by Registrator!
 
