@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "haproxy" do |haproxy|
     haproxy.vm.provider "docker" do |d|
       d.image = "cargonauts/consul-haproxy"
-      d.cmd   = ["-consul", "consul:8500", "-template", "/haproxy.ctmpl:/etc/haproxy/haproxy.cfg:service haproxy restart"]
+      d.cmd   = ["-consul", "consul:8500", "-template", "/haproxy.ctmpl:/etc/haproxy/haproxy.cfg:service haproxy reload"]
       d.ports = ["80:80"]
     end
   end
