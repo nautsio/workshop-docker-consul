@@ -122,7 +122,12 @@ Bringing machine 'consul' up with 'docker' provider...
     consul: Docker host VM is already ready.
     ...
 ```
-And start a container with the necessary tools
+
+
+!SUB
+To publish services to Consul and check the results we need some tools.
+
+They are prepackaged in the [`cargonauts/toolbox-networking`](https://registry.hub.docker.com/u/cargonauts/toolbox-networking/) Docker image.
 ```
 $ docker run -ti cargonauts/toolbox-networking
 ```
@@ -146,36 +151,25 @@ round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
 Since we've added `consul.service` as a search domain we can also reach a service without the `consul.service` postfix
 ```
 root@fc2959ba5207:/# ping -c 3 consul #without the .consul.service postfix
-PING consul (172.17.0.6): 48 data bytes
-56 bytes from 172.17.0.6: icmp_seq=0 ttl=64 time=0.052 ms
-56 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.164 ms
-56 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.189 ms
---- consul ping statistics ---
+PING consul.service.consul (172.17.0.8): 48 data bytes
+56 bytes from 172.17.0.8: icmp_seq=0 ttl=64 time=0.042 ms
+56 bytes from 172.17.0.8: icmp_seq=1 ttl=64 time=0.074 ms
+56 bytes from 172.17.0.8: icmp_seq=2 ttl=64 time=0.073 ms
+--- consul.service.consul ping statistics ---
 3 packets transmitted, 3 packets received, 0% packet loss
-round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
+round-trip min/avg/max/stddev = 0.042/0.063/0.074/0.000 ms
 ```
 
 
 !SUB
-We can use the `dig` tool to view DNS records
+We can use the `nslookup` tool to view DNS records
 ```
-root@fc2959ba5207:/# dig consul
-; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> consul
-;; global options: +cmd
-;; Got answer:
-;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 2476
-;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+root@fc2959ba5207:/# nslookup consul
+Server:   172.17.42.1
+Address:  172.17.42.1#53
 
-;; QUESTION SECTION:
-;consul.		              IN	A
-
-;; ANSWER SECTION:
-consul.               	0	IN	A	172.17.0.6
-
-;; Query time: 2 msec
-;; SERVER: 172.17.42.1#53(172.17.42.1)
-;; WHEN: Mon Mar  9 19:20:44 2015
-;; MSG SIZE  rcvd: 76
+Name: consul.service.consul
+Address: 172.17.0.8
 ```
 
 
