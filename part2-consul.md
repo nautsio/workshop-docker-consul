@@ -219,7 +219,7 @@ And check using nslookup or in the Consul WebUI if it's no longer there
 # Exit the container
 root@fc2959ba5207:/# exit
 # And stop the Consul container
-$ vagrant halt
+$ vagrant destroy
 ```
 
 
