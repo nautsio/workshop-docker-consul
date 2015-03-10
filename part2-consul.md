@@ -114,7 +114,9 @@ end
 !SUB
 Start the Dockerized Consul
 ```
-$ cd part2a
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2a
 # Start the container
 $ vagrant up
 Bringing machine 'consul' up with 'docker' provider...
@@ -212,14 +214,9 @@ root@fc2959ba5207:/# curl -X POST  -w "%{http_code}\n" \
 ```
 And check using nslookup or in the Consul WebUI if it's no longer there
 
-
-!SUB
-### Cleanup
 ```
-# Exit the container
+# If you're ready you can exit the container
 root@fc2959ba5207:/# exit
-# And stop the Consul container
-$ vagrant destroy
 ```
 
 
@@ -267,16 +264,21 @@ while true; do :; done
 
 
 !SUB
-Script will automatically registering a service
+The wrapper script will automatically register a service.
 
-Script will (try) to deregister when service is stopped
+The script will also try to deregister when the service is stopped.
 
 
 !SUB
-### Exercise
+### Part2b exercise
+
+
+!SUB
 Start the Dockerized Consul, app and database
 ```
-$ cd part2b
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2b
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
@@ -308,13 +310,13 @@ Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service
 
+
 !SUB
 So, now we've added Consul to our topology:
 ![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
 
 
 !SUB
-### Exercise
 Stopping the container unregisters it
 ```
 $ vagrant halt redis
@@ -371,10 +373,15 @@ We've replaces the service wrapper script<br>with Registrator in the topology:
 
 
 !SUB
-### Exercise
+### Part2c exercise
+
+
+!SUB
 Start the Consul, Regsitrator, app and database
 ```
-$ cd part2c
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2c
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
