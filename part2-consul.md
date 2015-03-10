@@ -61,21 +61,21 @@ This allows us to use the DNS Service Discovery interface provided by Consul wit
 
 
 !SUB
-### Docker settings
+### Docker Daemon settings
 #### For Consul's DNS based Service Discovery
+- Use Consul as DNS for the Docker Host
+- Expose this DNS to all containers:<br>`--dns <IP of docker0>`
+- Add search domain to facilitate lookup:<br>`--dns-search service.consul`
 
-- Use the Docker host itself as the first DNS server: `--dns <IP of docker0>`
-- Automatically search for `hostname.consul.service` if we do a lookup for a hostname: `--dns-search service.consul`
-
-<small>(both of these have already been applies in the Docker host image you're using)</small>
+<small>(these settings have already been applied in the Docker host image you're using)</small>
 
 
 !SUB
 ### Consul settings
 #### To use Consul as a DNS server for the Docker host
-We have to tell Consul to bind it's DNS and HTTP interfaces to the Docker host
+- We have to tell Consul to bind it's DNS<br>and HTTP interfaces to the Docker host
 
-We do this by adding the `-client 0.0.0.0` argument to Consul
+- We do this by adding the `-client 0.0.0.0`<br>argument to Consul
 
 <small>(this has already been done in the [cargonauts/consul-web image](https://registry.hub.docker.com/u/cargonauts/consul-web/) we're using)</small>
 
@@ -85,7 +85,7 @@ We do this by adding the `-client 0.0.0.0` argument to Consul
 Finally when we run the Consul container we have to publish it's DNS and HTTP ports with the following Docker run arguments
 
 - DNS: `-p 53:53/udp`
-- HTTP `-p 8500:8500`
+- HTTP: `-p 8500:8500`
 
 <small>(this has already been done in the `part2/Vagrantfile`)</small>
 
