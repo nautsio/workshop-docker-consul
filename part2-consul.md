@@ -176,7 +176,7 @@ Address: 172.17.0.8
 !SUB
 Use Consul's HTTP interface to register a service
 ```
-root@fc2959ba5207:/# curl  -X POST  -w "%{http_code}\n" http://consul:8500/v1/agent/service/register \
+root@fc2959ba5207:/# curl -X POST  -w "%{http_code}\n" http://consul:8500/v1/agent/service/register \
   --header 'Content-Type: application/json' \
   --data-binary '{"ID": "manualapp1", "Name": "manualapp", "Address": "123.4.5.6", "Port": 8888}'
 200
@@ -207,8 +207,19 @@ It's available at the same port as Consul's HTTP interface, which we've publishe
 !SUB
 Remove the manually created service
 ```
-curl -X POST \
-	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
+root@fc2959ba5207:/# curl -X POST  -w "%{http_code}\n" \
+	http://consul:8500/v1/agent/service/deregister/manualapp1
+```
+And check using nslookup or in the Consul WebUI if it's no longer there
+
+
+!SUB
+### Cleanup
+```
+# Exit the container
+root@fc2959ba5207:/# exit
+# And stop the Consul container
+$ vagrant halt
 ```
 
 
