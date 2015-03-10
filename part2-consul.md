@@ -223,6 +223,15 @@ $ vagrant destroy
 ```
 
 
+!SUB
+### Recap
+We've just manually added and removed a Service node to Consul.
+
+Obviously we don't want to do this manually for every service we want to run.
+
+Let's automate!
+
+
 
 !SLIDE
 ### part2b
