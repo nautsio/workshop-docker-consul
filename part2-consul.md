@@ -150,7 +150,7 @@ round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
 
 
 !SUB
-Since we've added `service.consul` as a search domain we can also reach a service without the `consul.service` postfix
+Since we've added `service.consul` as a search domain we can also reach a service without the `service.consul` postfix
 ```
 root@fc2959ba5207:/# ping -c 3 consul #without the service.consul postfix
 PING consul.service.consul (172.17.0.8): 48 data bytes
