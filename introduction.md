@@ -5,9 +5,9 @@
 
 Slides: [cargonauts.io/mitchellh-auto-dc](http://cargonauts.io/mitchellh-auto-dc)
 
-Adé Mochtar - [amochtar@xebia.com](mailto:amochtar@xebia.com)
+Adé Mochtar - [ade@cargonauts.io](mailto:ade@cargonauts.io)
 
-Simon van der Veldt - [svanderveldt@xebia.com](mailto:svanderveldt@xebia.com)
+Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 
 
 
@@ -57,7 +57,7 @@ $ cd mitchellh-auto-dc
 
 !SUB
 ## Notes
-1. Make sure you do not start the containers in parallel
+- Make sure you do not start the containers in parallel
 
   ```
   # Globally disable Vagrant's parallel executions
@@ -78,8 +78,15 @@ $ cd mitchellh-auto-dc
 
   </small>
 
-2. Before moving to a new part, destroy the current one
-
-    ```
-    vagrant destroy -f
-    ```
+!SUB
+- Before moving to a new part, destroy the current one
+```
+vagrant destroy -f
+```
+<!-- .element: class="bash" -->
+- On linux add `--provider docker` to every `vagrant up` command
+```
+vagrant up --provider=docker
+vagrant up --no-parallel --provider docker
+```
+<!-- .element: class="bash" -->
