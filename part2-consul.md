@@ -61,21 +61,21 @@ This allows us to use the DNS Service Discovery interface provided by Consul wit
 
 
 !SUB
-### Docker settings
+### Docker Daemon settings
 #### For Consul's DNS based Service Discovery
+- Use Consul as DNS for the Docker Host
+- Expose this DNS to all containers:<br>`--dns <IP of docker0>`
+- Add search domain to facilitate lookup:<br>`--dns-search service.consul`
 
-- Use the Docker host itself as the first DNS server: `--dns <IP of docker0>`
-- Automatically search for `hostname.consul.service` if we do a lookup for a hostname: `--dns-search service.consul`
-
-<small>(both of these have already been applies in the Docker host image you're using)</small>
+<small>(these settings have already been applied in the Docker host image you're using)</small>
 
 
 !SUB
 ### Consul settings
 #### To use Consul as a DNS server for the Docker host
-We have to tell Consul to bind it's DNS and HTTP interfaces to the Docker host
+- We have to tell Consul to bind it's DNS<br>and HTTP interfaces to the Docker host
 
-We do this by adding the `-client 0.0.0.0` argument to Consul
+- We do this by adding the `-client 0.0.0.0`<br>argument to Consul
 
 <small>(this has already been done in the [cargonauts/consul-web image](https://registry.hub.docker.com/u/cargonauts/consul-web/) we're using)</small>
 
@@ -85,7 +85,7 @@ We do this by adding the `-client 0.0.0.0` argument to Consul
 Finally when we run the Consul container we have to publish it's DNS and HTTP ports with the following Docker run arguments
 
 - DNS: `-p 53:53/udp`
-- HTTP `-p 8500:8500`
+- HTTP: `-p 8500:8500`
 
 <small>(this has already been done in the `part2/Vagrantfile`)</small>
 
@@ -114,7 +114,9 @@ end
 !SUB
 Start the Dockerized Consul
 ```
-$ cd part2a
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2a
 # Start the container
 $ vagrant up
 Bringing machine 'consul' up with 'docker' provider...
@@ -122,7 +124,12 @@ Bringing machine 'consul' up with 'docker' provider...
     consul: Docker host VM is already ready.
     ...
 ```
-And start a container with the necessary tools
+
+
+!SUB
+To publish services to Consul and check the results we need some tools.
+
+They are prepackaged in the [`cargonauts/toolbox-networking`](https://registry.hub.docker.com/u/cargonauts/toolbox-networking/) Docker image.
 ```
 $ docker run -ti cargonauts/toolbox-networking
 ```
@@ -143,57 +150,50 @@ round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
 
 
 !SUB
-Since we've added `consul.service` as a search domain we can also reach a service without the `consul.service` postfix
+Since we've added `service.consul` as a search domain we can also reach a service without the `service.consul` postfix
 ```
-root@fc2959ba5207:/# ping -c 3 consul #without the .consul.service postfix
-PING consul (172.17.0.6): 48 data bytes
-56 bytes from 172.17.0.6: icmp_seq=0 ttl=64 time=0.052 ms
-56 bytes from 172.17.0.6: icmp_seq=1 ttl=64 time=0.164 ms
-56 bytes from 172.17.0.6: icmp_seq=2 ttl=64 time=0.189 ms
---- consul ping statistics ---
+root@fc2959ba5207:/# ping -c 3 consul #without the service.consul postfix
+PING consul.service.consul (172.17.0.8): 48 data bytes
+56 bytes from 172.17.0.8: icmp_seq=0 ttl=64 time=0.042 ms
+56 bytes from 172.17.0.8: icmp_seq=1 ttl=64 time=0.074 ms
+56 bytes from 172.17.0.8: icmp_seq=2 ttl=64 time=0.073 ms
+--- consul.service.consul ping statistics ---
 3 packets transmitted, 3 packets received, 0% packet loss
-round-trip min/avg/max/stddev = 0.052/0.135/0.189/0.060 ms
+round-trip min/avg/max/stddev = 0.042/0.063/0.074/0.000 ms
 ```
 
 
 !SUB
-We can use the `dig` tool to view DNS records
+We can use `nslookup` to check the DNS records
 ```
-root@fc2959ba5207:/# dig consul
-; <<>> DiG 9.8.4-rpz2+rl005.12-P1 <<>> consul
-;; global options: +cmd
-;; Got answer:
-;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 2476
-;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+root@fc2959ba5207:/# nslookup consul
+Server:   172.17.42.1
+Address:  172.17.42.1#53
 
-;; QUESTION SECTION:
-;consul.		              IN	A
-
-;; ANSWER SECTION:
-consul.               	0	IN	A	172.17.0.6
-
-;; Query time: 2 msec
-;; SERVER: 172.17.42.1#53(172.17.42.1)
-;; WHEN: Mon Mar  9 19:20:44 2015
-;; MSG SIZE  rcvd: 76
+Name: consul.service.consul
+Address: 172.17.0.8
 ```
 
 
 !SUB
-Manually add a service to Consul
+Use Consul's HTTP interface to register a service
 ```
-root@fc2959ba5207:/# curl -X POST http://consul:8500/v1/agent/service/register \
+root@fc2959ba5207:/# curl -X POST  -w "%{http_code}\n" http://consul:8500/v1/agent/service/register \
   --header 'Content-Type: application/json' \
   --data-binary '{"ID": "manualapp1", "Name": "manualapp", "Address": "123.4.5.6", "Port": 8888}'
+200
 ```
 
 
 !SUB
 Now check if we can find our new service
 ```
+root@fc2959ba5207:/# nslookup manualapp
+Server:   172.17.42.1
+Address:  172.17.42.1#53
 
-$ dig helloworld.service.consul +short
-123.4.5.6
+Name: manualapp.service.consul
+Address: 123.4.5.6
 ```
 
 
@@ -209,9 +209,24 @@ It's available at the same port as Consul's HTTP interface, which we've publishe
 !SUB
 Remove the manually created service
 ```
-curl -X POST \
-	http://consul.service.consul:8500/v1/agent/service/deregister/helloworld1
+root@fc2959ba5207:/# curl -X POST  -w "%{http_code}\n" \
+	http://consul:8500/v1/agent/service/deregister/manualapp1
 ```
+And check using nslookup or in the Consul WebUI if it's no longer there
+
+```
+# If you're ready you can exit the container
+root@fc2959ba5207:/# exit
+```
+
+
+!SUB
+### Recap
+We've just manually added and removed a Service node to Consul.
+
+Obviously we don't want to do this manually for every service we want to run.
+
+Let's automate!
 
 
 
@@ -249,16 +264,21 @@ while true; do :; done
 
 
 !SUB
-Script will automatically registering a service
+The wrapper script will automatically register a service.
 
-Script will (try) to deregister when service is stopped
+The script will also try to deregister when the service is stopped.
 
 
 !SUB
-### Exercise
+### Part2b exercise
+
+
+!SUB
 Start the Dockerized Consul, app and database
 ```
-$ cd part2b
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2b
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
@@ -290,13 +310,13 @@ Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service
 
+
 !SUB
 So, now we've added Consul to our topology:
 ![Consul](img/topology/2a_consul.png) <!-- .element: class="noborder" -->
 
 
 !SUB
-### Exercise
 Stopping the container unregisters it
 ```
 $ vagrant halt redis
@@ -353,10 +373,15 @@ We've replaces the service wrapper script<br>with Registrator in the topology:
 
 
 !SUB
-### Exercise
+### Part2c exercise
+
+
+!SUB
 Start the Consul, Regsitrator, app and database
 ```
-$ cd part2c
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part2c
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
@@ -387,5 +412,5 @@ ddfccf6a0076        gliderlabs/registrator:latest         "/bin/registrator co  
 !SUB
 Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
-Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service, now created by Registrator!
+Open [Consul Web UI](http://192.168.190.85:8500/) to check redis service, now automatically created by Registrator!
 

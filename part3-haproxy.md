@@ -7,13 +7,13 @@
 
 !SUB
 
-## Load-balancing the application
+### Load-balancing the application
 
 Let's scale out our application
 
 
 !SUB
-Load-balancing could be done with Consul's DNS service
+Load-balancing can be done with Consul's DNS service
 
 That means standard round-robin DNS
 
@@ -35,7 +35,7 @@ Consul + Registrator gives us service discovery
 
 All necessary information is available: nodes, ports
 
-But we need a way to generate HAProxy configuration
+But we need a way to generate the HAProxy configuration
 
 
 !SUB
@@ -44,11 +44,10 @@ But we need a way to generate HAProxy configuration
 
 > This project provides a convenient way to populate values from Consul into the filesystem using the consul-template daemon.
 
-See [GitHub](https://github.com/hashicorp/consul-template)
+[Consul-template @ GitHub](https://github.com/hashicorp/consul-template)
 
 
 !SUB
-
 Example
 
 ```
@@ -63,11 +62,10 @@ Queries `consul.service.consul:8500`
 
 Renders template `/haproxy.ctmpl` to `/etc/haproxy/haproxy.cfg`
 
-Restarts haproxy service
+Restarts haproxy service on Consul value change
 
 
 !SUB
-
 Templates are written in the [Go Template](http://golang.org/pkg/text/template/) format
 
 Exposes additional functions, see [Templating Language](https://github.com/hashicorp/consul-template#templating-language)
@@ -119,7 +117,7 @@ The source can be found on [GitHub](https://github.com/cargonauts/consul-haproxy
 
 
 !SUB
-Some small changes to our Hello World App
+Some small changes to our Hello World `Vagrantfile`
 ```
   config.vm.define "hellodb0" do |hellodb0|
     hellodb0.vm.provider "docker" do |d|
@@ -151,17 +149,21 @@ And add our HAProxy container
 
 
 !SUB
-
 The complete topology will look like this:
 ![HAProxy](img/topology/3_haproxy.png) <!-- .element: class="noborder" -->
 
 
 !SUB
-### Exercise
+### Exercise part3
+
+
+!SUB
 Start the Dockerized hello world app using Vagrant
 ```
-$ cd part3
-$ v up --no-parallel
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part3
+$ vagrant up --no-parallel
 Bringing machine 'consul' up with 'docker' provider...
 Bringing machine 'registrator' up with 'docker' provider...
 Bringing machine 'redis' up with 'docker' provider...
@@ -185,7 +187,7 @@ Check some fancy HAProxy stats, visit [192.168.190.85/?stats](http://192.168.190
 
 
 !SUB
-### Exercise
+### Extra exercise
 Try adding the very first container (from part 1a) to the topology
 
 ```

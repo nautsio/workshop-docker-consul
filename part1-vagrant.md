@@ -87,7 +87,10 @@ end
 
 
 !SUB
-### Exercise
+### Part1a exercise
+
+
+!SUB
 Start the Dockerized hello world app using Vagrant
 ```
 $ cd part1a
@@ -99,6 +102,7 @@ Bringing machine 'helloworld' up with 'docker' provider...
     helloworld:
     helloworld: Importing base box 'cargonauts/boot2docker'...
 ```
+<!-- .element: class="bash" -->
 
 
 !SUB
@@ -234,10 +238,15 @@ The result will be this topology:
 
 
 !SUB
-### Exercise
+### Part1b exercise
+
+
+!SUB
 Start the Dockerized apps
 ```
-$ cd part1b
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part1b
 # Start the containers
 $ vagrant up --no-parallel
 Bringing machine 'redis' up with 'docker' provider...
@@ -245,6 +254,7 @@ Bringing machine 'hellodb' up with 'docker' provider...
 ==> redis: Docker host is required. One will be created if necessary...
     redis: Docker host VM is already ready.
 ```
+<!-- .element: class="bash" -->
 
 
 !SUB
@@ -275,7 +285,6 @@ But the app can't find the database :(
 The application container can't find the database container
 
 They need a mechanism to find each other
-
 
 
 !SLIDE
@@ -328,16 +337,22 @@ end
 
 
 !SUB
-### Exercise
+### Part1c exercise
+
+
+!SUB
 Start the linked Dockerized apps
 ```
-$ cd part1c
+# Cleanup previous part
+$ vagrant destroy -f
+$ cd ../part1c
 $ vagrant up --no-parallel
 Bringing machine 'redis' up with 'docker' provider...
 Bringing machine 'hellodb' up with 'docker' provider...
 ==> redis: Docker host is required. One will be created if necessary...
     redis: Docker host VM is already ready.
 ```
+<!-- .element: class="bash" -->
 
 
 !SUB
