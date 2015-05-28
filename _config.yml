@@ -1,0 +1,8 @@
+# Site settings
+title: Mitchell Hashimoto @ Xebia - Hands-on session
+author: Adé Mochtar, Simon van der Veldt
+
+# Build settings
+markdown_ext: "null"
+sass:
+    sass_dir: reveal.js
