@@ -51,6 +51,16 @@ section.has-light-background {
   background: transparent;
 }
 
+.reveal pre code {
+  display: block;
+  padding: 5px;
+  overflow: auto;
+  max-height: 400px;
+  word-wrap: normal;
+  background: white;
+  color: #4d4d4c;
+}
+
 @font-face {
     font-family: 'Montserrat';
     src: url('../fonts/montserrat-bold.ttf') format('truetype');
