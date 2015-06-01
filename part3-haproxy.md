@@ -66,26 +66,26 @@ Restarts haproxy service on Consul value change
 
 
 !SUB
-Templates are written in the [Go Template](http://golang.org/pkg/text/template/) format
 
-Exposes additional functions, see [Templating Language](https://github.com/hashicorp/consul-template#templating-language)
+### Templates
 
-<br>
+Consul template uses the [Go Template](http://golang.org/pkg/text/template/) format
 
-Query all nodes
+Additionally Consul template exposes it's [own functions](https://github.com/hashicorp/consul-template#templating-language)
+
+
+!SUB
+
+### Template examples
+
 ```
+# Query all nodes
 {{nodes}}
-```
-<br>
 
-Query all services named webapp
-```
+# Query all services named webapp
 {{service "webapp"}}
-```
-<br>
 
-Iterate over all webapp services, accessing several properties
-```
+# Iterate over all webapp services, accessing several properties
 {{range service "webapp@datacenter"}}
 server {{.Name}} {{.Address}}:{{.Port}}{{end}}
 ```
