@@ -61,6 +61,20 @@ section.has-light-background {
   color: #4d4d4c;
 }
 
+#logo {
+  background: url(../../img/cargonaut.svg);
+  position: fixed;
+  z-index: 30;
+  width: 26vh;
+  height: 30vh;
+  left: -5vh;
+  bottom: -9vh;
+  -webkit-user-select: none; 
+  -ms-transform: rotate(25deg);
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+}
+
 @font-face {
     font-family: 'Montserrat';
     src: url('../fonts/montserrat-bold.ttf') format('truetype');
