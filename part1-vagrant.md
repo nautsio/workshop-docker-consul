@@ -14,7 +14,7 @@ But here's one anyway
 
  - Easy to configure, reproducible, and portable work environments
  - Provisions on top of VirtualBox, VMware, AWS, or any other provider
- - Install software with tools such as shell scripts, Chef, or Puppet
+ - Install software with tools such as shell scripts, Puppet or Ansible
 
 [_vagrantup.com_](https://www.vagrantup.com/)
 
@@ -24,7 +24,7 @@ But here's one anyway
 
  - Configuration with Vagrantfile
  - Providers (VirtualBox, VMware, AWS, Docker, ...)
- - Provisioners (Shell, Puppet, Chef, Salt, ...)
+ - Provisioners (Shell, Puppet, Ansible, Salt, ...)
 
 [_Vagrant Docs_](https://docs.vagrantup.com/v2/)
 

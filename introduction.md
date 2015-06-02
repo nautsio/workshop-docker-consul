@@ -41,16 +41,15 @@ Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 
 !SUB
 ## Prerequisites
-[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v 1.7+)
+[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v1.7.2)
 
 [Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
 
-[Docker client](https://docs.docker.com/installation/) (v1.5)
-
+[Docker](https://docs.docker.com/installation/) / [boot2docker](http://boot2docker.io) (v1.6.2)
 
 
 !SUB
-Get the files
+## Get the files
 
 [https://github.com/cargonauts/mitchellh-auto-dc](https://github.com/cargonauts/mitchellh-auto-dc)
 ```
@@ -70,21 +69,30 @@ vagrant up --no-parallel
 ```
 <small>
 
-This has to be done because
-* Docker issue with pulling images concurrently: [Boot2docker issue #757](https://github.com/boot2docker/boot2docker/issues/757) / [Docker issue #9718](https://github.com/docker/docker/issues/9718)
+#### This has to be done because
+* [Docker issue](https://github.com/docker/docker/issues/9718)/[boot2docker issue](https://github.com/boot2docker/boot2docker/issues/757) with pulling images concurrently
 * For some exercises there are dependencies between containers
 
 </small>
 
+
 !SUB
-- Before moving to a new part, destroy the current one
+### Linux
+On Linux we have to force the provider to Docker
+<!-- .element: class="bash" -->
+```
+# Globally set the default provider to Docker
+export VAGRANT_DEFAULT_PROVIDER=docker
+# or add `--provider docker` to every `vagrant up` command
+vagrant up --provider=docker
+vagrant up --provider=docker --no-parallel
+```
+<!-- .element: class="bash" -->
+
+
+!SUB
+### Cleanup
+Before moving to a new part, destroy the current one
 ```
 vagrant destroy -f
 ```
-<!-- .element: class="bash" -->
-- On linux add `--provider docker` to every `vagrant up` command
-```
-vagrant up --provider=docker
-vagrant up --no-parallel --provider docker
-```
-<!-- .element: class="bash" -->
