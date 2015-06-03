@@ -1,13 +1,11 @@
-# Automating the modern datacenter
+# Workshop Docker & Consul
 
-Mitchell Hashimoto @ Xebia - hands-on session
+Files for the Docker & Consul workshop @ [cargonauts.io/workshop-docker-consul](http://cargonauts.io/workshop-docker-consul)
 
-Have the following software installed:
+## Setup
+You'll need the following software:
 - Vagrant 1.7.2 https://www.vagrantup.com/downloads.html
 - Virtualbox 4.3+ https://www.virtualbox.org/wiki/Downloads
 - Docker 1.5 https://docs.docker.com/installation/
-- Git http://git-scm.com/downloads
 
-Clone the repository https://github.com/cargonauts/workshop-docker-consul.git
-
-Slides are available at http://cargonauts.io/workshop-docker-consul
+Clone the repository https://github.com/cargonauts/workshop-docker-consul.git or download a zip/tar.gz archive from the `master` branch.
