@@ -8,6 +8,6 @@ Have the following software installed:
 - Docker 1.5 https://docs.docker.com/installation/
 - Git http://git-scm.com/downloads
 
-Clone the repository https://github.com/cargonauts/mitchellh-auto-dc.git
+Clone the repository https://github.com/cargonauts/workshop-docker-consul.git
 
-Slides are available at http://cargonauts.io/mitchellh-auto-dc
+Slides are available at http://cargonauts.io/workshop-docker-consul
