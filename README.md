@@ -1,6 +1,6 @@
-# Automating the modern datacenter
+# Workshop Docker & Consul
 
-Slides for Mitchell Hashimoto @ Xebia - hands-on session
+Slides for the Docker & Consul workshop.
 
 
 ## Requirements
