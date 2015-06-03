@@ -6,7 +6,7 @@
 ## workshop
 
 
-<br><p>[cargonauts.io/mitchellh-auto-dc](http://cargonauts.io/mitchellh-auto-dc)
+<br><p>[cargonauts.io/workshop-docker-consul](http://cargonauts.io/workshop-docker-consul)
 
 Adé Mochtar - [ade@cargonauts.io](mailto:ade@cargonauts.io)
 
@@ -51,13 +51,13 @@ Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 !SUB
 ## Get the files
 
-[https://github.com/cargonauts/mitchellh-auto-dc](https://github.com/cargonauts/mitchellh-auto-dc)
+[github.com/cargonauts/workshop-docker-consul](https://github.com/cargonauts/workshop-docker-consul)
 ```
-$ git clone https://github.com/cargonauts/mitchellh-auto-dc.git
-$ cd mitchellh-auto-dc
+$ git clone https://github.com/cargonauts/workshop-docker-consul.git
+$ cd workshop-docker-consul
 ```
 Or download the files directly
-<br>[zip](https://github.com/cargonauts/mitchellh-auto-dc/archive/master.zip) or [tar.gz](https://github.com/cargonauts/mitchellh-auto-dc/archive/master.tar.gz)
+<br>[zip](https://github.com/cargonauts/workshop-docker-consul/archive/master.zip) or [tar.gz](https://github.com/cargonauts/workshop-docker-consul/archive/master.tar.gz)
 
 
 !SUB
