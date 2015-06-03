@@ -56,6 +56,9 @@ Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 $ git clone https://github.com/cargonauts/mitchellh-auto-dc.git
 $ cd mitchellh-auto-dc
 ```
+Or download the files directly
+<br>[zip](https://github.com/cargonauts/mitchellh-auto-dc/archive/master.zip) or [tar.gz](https://github.com/cargonauts/mitchellh-auto-dc/archive/master.tar.gz)
+
 
 !SUB
 ## Notes
