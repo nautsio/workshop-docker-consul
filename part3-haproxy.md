@@ -6,31 +6,30 @@
 
 
 !SUB
-
-### Load-balancing the application
+## Load-balancing the application
 
 Let's scale out our application
 
 
 !SUB
+### Load-balancing with Consul
 Load-balancing can be done with Consul's DNS service
 
 That means standard round-robin DNS
 
-With all its limitations, e.g. caching
+This has limitations, for example caching
 
 
 !SUB
-
-So we prefer
-
-![HAProxy logo](img/haproxy-logo.png) <!-- .element: class="noborder" -->
+So we'll use a proxy
 
 # HAProxy
 
+![HAProxy logo](img/haproxy-logo.png) <!-- .element: class="noborder" -->
+
 
 !SUB
-
+### Consul -> HAProxy
 Consul + Registrator gives us service discovery
 
 All necessary information is available: nodes, ports
@@ -39,8 +38,7 @@ But we need a way to generate the HAProxy configuration
 
 
 !SUB
-
-## Consul-template
+### Consul-template
 
 > This project provides a convenient way to populate values from Consul into the filesystem using the consul-template daemon.
 
@@ -66,17 +64,15 @@ Restarts haproxy service on Consul value change
 
 
 !SUB
-
 ### Templates
 
 Consul template uses the [Go Template](http://golang.org/pkg/text/template/) format
 
-Additionally Consul template exposes it's [own functions](https://github.com/hashicorp/consul-template#templating-language)
+Additionally Consul template adds it's [own functions](https://github.com/hashicorp/consul-template#templating-language)
 
 
 !SUB
-
-### Template examples
+### Templating examples
 
 ```
 # Query all nodes
@@ -92,7 +88,6 @@ server {{.Name}} {{.Address}}:{{.Port}}{{end}}
 
 
 !SUB
-
 (Minimal) HAProxy Consul template for our Hello World app
 ```
 global
@@ -109,6 +104,7 @@ listen http-in
     bind *:80{{range service "hellodb"}}
     server {{.ID}} {{.Address}}:{{.Port}}{{end}}
 ```
+
 
 !SUB
 We've pre-packaged a HAProxy in the<br>[`cargonauts/consul-haproxy`](https://registry.hub.docker.com/u/cargonauts/consul-haproxy/) image
@@ -154,7 +150,7 @@ The complete topology will look like this:
 
 
 !SUB
-### Exercise part3
+### Part3 exercise
 
 
 !SUB
@@ -176,7 +172,7 @@ Bringing machine 'haproxy' up with 'docker' provider...
 !SUB
 Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
-Check some fancy HAProxy stats, visit [192.168.190.85/?stats](http://192.168.190.85/?stats)
+For some free fancy HAProxy stats, visit [192.168.190.85/?stats](http://192.168.190.85/?stats)
 
 
 !SUB
