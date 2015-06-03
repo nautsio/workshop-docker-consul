@@ -32,7 +32,6 @@ Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 - Form groups of 6-8 people
 - Help each other out
 - The slides should guide you
-- The guys in purple are there to help you out as well ;)
 
 
 !SLIDE
