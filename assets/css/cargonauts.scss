@@ -69,7 +69,7 @@ section.has-light-background {
   height: 30vh;
   left: -5vh;
   bottom: -9vh;
-  -webkit-user-select: none; 
+  -webkit-user-select: none;
   -ms-transform: rotate(25deg);
   -webkit-transform: rotate(25deg);
   transform: rotate(25deg);
@@ -87,4 +87,11 @@ section.has-light-background {
     src: url('../fonts/robotoslab-regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+.github-fork-ribbon {
+  font-size: 2vh !important;
+}
+.github-fork-ribbon.right-top:before {
+  background-color: #F7931E;
 }
