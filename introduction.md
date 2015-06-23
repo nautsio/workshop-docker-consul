@@ -15,6 +15,27 @@ Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
 
 
 !SLIDE
+# Cargonauts
+A Xebia initiative
+
+All about data center automation:
+  - Automate, automate, automate!
+  - Code the infrastructure!
+  - Containerize all the things!
+
+[cargonauts.io](http://cargonauts.io)
+
+!SUB
+
+### Want to know / learn more?
+
+- [Official Docker training](https://training.xebia.com/continuous-delivery-devops/introduction-to-docker/)
+- [Open Kitchen - Data Center Automation: Building multi-cloud infrastructure with Terraform](https://xebia.com/events/open-kitchen-datacentre-automation-building-multi-cloud-infrastructure-with-terraform)
+- [Summer Special - Build your own Continuous Delivery pipeline using Docker](https://training.xebia.com/summer-specials/build-your-own-continuous-delivery-pipeline-using-docker/)
+- [Summer Special - Deep Dive into Consul](https://training.xebia.com/summer-specials/deep-dive-into-consul/)
+
+
+!SLIDE
 # Introduction
 
 
