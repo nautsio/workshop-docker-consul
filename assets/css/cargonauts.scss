@@ -26,8 +26,8 @@ $headingLetterSpacing: normal;
 $headingTextTransform: uppercase;
 $headingFontWeight: 600;
 $linkColor: #005E86;
-$linkColorHover: lighten( $linkColor, 15% );
-$selectionBackgroundColor: lighten( $linkColor, 25% );
+$linkColorHover: darken( $linkColor, 15% );
+$selectionBackgroundColor: darken( $linkColor, 25% );
 
 $heading1Size: 2.5em;
 $heading2Size: 1.6em;
