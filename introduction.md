@@ -10,8 +10,9 @@
 
 Adé Mochtar - [ade@cargonauts.io](mailto:ade@cargonauts.io)
 
-Simon van der Veldt - [simon@cargonauts.io](mailto:simon@cargonauts.io)
+Benny Cornelissen - [benny@cargonauts.io](mailto:benny@cargonauts.io)
 
+Fai Fung - [fai@cargonauts.io](mailto:fai@cargonauts.io)
 
 
 !SLIDE
@@ -30,9 +31,9 @@ All about data center automation:
 ### Want to know / learn more?
 
 - [Official Docker training](https://training.xebia.com/continuous-delivery-devops/introduction-to-docker/)
-- [Open Kitchen - Data Center Automation: Building multi-cloud infrastructure with Terraform](https://xebia.com/events/open-kitchen-datacentre-automation-building-multi-cloud-infrastructure-with-terraform)
-- [Summer Special - Build your own Continuous Delivery pipeline using Docker](https://training.xebia.com/summer-specials/build-your-own-continuous-delivery-pipeline-using-docker/)
-- [Summer Special - Deep Dive into Consul](https://training.xebia.com/summer-specials/deep-dive-into-consul/)
+- [Open Kitchen - Continuous Delivery Pipeline with Docker](https://xebia.com/events/open-kitchen-continuous-delivery-docker)
+- [Open Kitchen - Building multi-cloud infrastructure with Terraform](https://xebia.com/events/open-kitchen-datacentre-automation-building-multi-cloud-infrastructure-with-terraform)
+- [Meetup Group - Dutch Devops Engineers](http://www.meetup.com/devops-engineers/)
 
 
 !SLIDE
@@ -61,11 +62,11 @@ All about data center automation:
 
 !SUB
 ## Prerequisites
-[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v1.7.2)
+[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v1.7)
 
 [Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
 
-[Docker](https://docs.docker.com/installation/) / [boot2docker](http://boot2docker.io) (v1.6.2)
+[Docker](https://docs.docker.com/installation/) (v1.8.1)
 
 
 !SUB
