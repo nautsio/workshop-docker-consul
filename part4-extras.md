@@ -78,7 +78,7 @@ Use Consul's K/V store to enable/disable features
 !SLIDE
 # Thanks!
 
-[cargonauts.io](http://cargonauts.io)
+[nauts.io](http://nauts.io)
 
 !SUB
 

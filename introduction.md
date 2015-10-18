@@ -1,42 +1,3 @@
-![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![Consul logo](img/consul-logo.png) <!-- .element: class="noborder" -->
-## workshop
-
-
-<br><p>[cargonauts.io/workshop-docker-consul](http://cargonauts.io/workshop-docker-consul)
-
-Adé Mochtar - [ade@cargonauts.io](mailto:ade@cargonauts.io)
-
-Benny Cornelissen - [benny@cargonauts.io](mailto:benny@cargonauts.io)
-
-Fai Fung - [fai@cargonauts.io](mailto:fai@cargonauts.io)
-
-
-!SLIDE
-# Cargonauts
-A Xebia initiative
-
-All about data center automation:
-  - Automate, automate, automate!
-  - Code the infrastructure!
-  - Containerize all the things!
-
-[cargonauts.io](http://cargonauts.io)
-
-!SUB
-
-### Want to know / learn more?
-
-- [Official Docker training](https://training.xebia.com/continuous-delivery-devops/introduction-to-docker/)
-- [Open Kitchen - Continuous Delivery Pipeline with Docker](https://xebia.com/events/open-kitchen-continuous-delivery-docker)
-- [Open Kitchen - Building multi-cloud infrastructure with Terraform](https://xebia.com/events/open-kitchen-datacentre-automation-building-multi-cloud-infrastructure-with-terraform)
-- [Meetup Group - Dutch Devops Engineers](http://www.meetup.com/devops-engineers/)
-
-
-!SLIDE
 # Introduction
 
 
@@ -72,13 +33,13 @@ All about data center automation:
 !SUB
 ## Get the files
 
-[github.com/cargonauts/workshop-docker-consul](https://github.com/cargonauts/workshop-docker-consul)
+[github.com/nautsio/workshop-docker-consul](https://github.com/nautsio/workshop-docker-consul)
 ```
-$ git clone https://github.com/cargonauts/workshop-docker-consul.git
+$ git clone https://github.com/nautsio/workshop-docker-consul.git
 $ cd workshop-docker-consul
 ```
 Or download the files directly
-<br>[zip](https://github.com/cargonauts/workshop-docker-consul/archive/master.zip) or [tar.gz](https://github.com/cargonauts/workshop-docker-consul/archive/master.tar.gz)
+<br>[zip](https://github.com/nautsio/workshop-docker-consul/archive/master.zip) or [tar.gz](https://github.com/nautsio/workshop-docker-consul/archive/master.tar.gz)
 
 
 !SUB
