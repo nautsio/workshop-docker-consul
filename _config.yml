@@ -1,3 +1,4 @@
 # Site settings
 title: "Workshop Docker & Consul - Nauts.io"
 author: Adé Mochtar, Simon van der Veldt
+cdn: http://cdn.nauts.io
