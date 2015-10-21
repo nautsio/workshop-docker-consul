@@ -274,7 +274,7 @@ The script will also try to deregister when the service is stopped.
 
 
 !SUB
-Start the Dockerized Consul, app and database
+Start Consul, app and database
 ```
 # Cleanup previous part
 $ vagrant destroy -f
@@ -368,7 +368,7 @@ Automatically register & unregister a container using registrator
 
 !SUB
 
-We've replaces the service wrapper script<br>with Registrator in the topology:
+We've replaced the service wrapper script<br>with Registrator in the topology:
 ![Consul and Registrator](img/topology/2b_registrator.png) <!-- .element: class="noborder" -->
 
 
@@ -377,7 +377,7 @@ We've replaces the service wrapper script<br>with Registrator in the topology:
 
 
 !SUB
-Start the Consul, Regsitrator, app and database
+Start Consul, Registrator, app and database
 ```
 # Cleanup previous part
 $ vagrant destroy -f

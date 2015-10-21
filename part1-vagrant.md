@@ -23,7 +23,7 @@ But here's one anyway
 !SUB
 ### Vagrant works with
 
- - Configuration with Vagrantfile
+ - Configuration with `Vagrantfile`
  - Providers (VirtualBox, VMware, AWS, Docker, ...)
  - Provisioners (Shell, Puppet, Ansible, Salt, ...)
 
