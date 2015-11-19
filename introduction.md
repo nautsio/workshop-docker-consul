@@ -20,15 +20,11 @@
 !SLIDE
 # Setup
 
-
 !SUB
 ## Prerequisites
-[Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v1.7)
-
-[Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
-
-[Docker](https://docs.docker.com/installation/) (v1.8.1)
-
+- [Vagrant](https://docs.vagrantup.com/v2/installation/index.html) (v1.7)
+- [Virtualbox](https://www.virtualbox.org/wiki/Downloads) (v4.3+)
+- [Docker](https://docs.docker.com/installation/) (v1.8.1)
 
 !SUB
 ## Get the files
@@ -38,42 +34,35 @@
 $ git clone https://github.com/nautsio/workshop-docker-consul.git
 $ cd workshop-docker-consul
 ```
-Or download the files directly
-<br>[zip](https://github.com/nautsio/workshop-docker-consul/archive/master.zip) or [tar.gz](https://github.com/nautsio/workshop-docker-consul/archive/master.tar.gz)
-
+Or download the files directly [zip](https://github.com/nautsio/workshop-docker-consul/archive/master.zip) or [tar.gz](https://github.com/nautsio/workshop-docker-consul/archive/master.tar.gz)
 
 !SUB
 ## Notes
 Make sure you do not start the containers in parallel
 
-```
+```bash
 # Globally disable Vagrant's parallel executions
 export VAGRANT_NO_PARALLEL=true
 # or add the no-parallel flag for every vagrant up
 vagrant up --no-parallel
 ```
 <small>
-
-#### This has to be done because
+#### This has to be done because <!-- .element: style="text-align: left" -->
 * [Docker issue](https://github.com/docker/docker/issues/9718)/[boot2docker issue](https://github.com/boot2docker/boot2docker/issues/757) with pulling images concurrently
 * For some exercises there are dependencies between containers
 
 </small>
 
-
 !SUB
 ### Linux
 On Linux we have to force the provider to Docker
-<!-- .element: class="bash" -->
-```
+```bash
 # Globally set the default provider to Docker
 export VAGRANT_DEFAULT_PROVIDER=docker
 # or add `--provider docker` to every `vagrant up` command
 vagrant up --provider=docker
 vagrant up --provider=docker --no-parallel
 ```
-<!-- .element: class="bash" -->
-
 
 !SUB
 ### Cleanup

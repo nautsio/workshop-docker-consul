@@ -1,6 +1,7 @@
+<!-- .element: class="center" -->
 ### part2
 # Consul
-![Consul logo](img/consul-logo.png) <!-- .element: class="noborder" -->
+![Consul logo](img/consul-logo.png) <!-- .element: class="noblock" -->
 
 
 !SUB
@@ -37,8 +38,9 @@ Consul "is a tool for discovering and configuring services in your infrastructur
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part2a
-![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noblock" -->
 
 ## service discovery using Consul
 
@@ -129,7 +131,7 @@ Bringing machine 'consul' up with 'docker' provider...
 !SUB
 To publish services to Consul and check the results we need some tools.
 
-They are prepackaged in the [`cargonauts/toolbox-networking`](https://registry.hub.docker.com/u/cargonauts/toolbox-networking/) Docker image.
+They are prepackaged in the [cargonauts/toolbox-networking](https://registry.hub.docker.com/u/cargonauts/toolbox-networking/) Docker image.
 ```
 $ docker run -ti cargonauts/toolbox-networking
 ```
@@ -231,15 +233,16 @@ Let's automate!
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part2b
-![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noblock" -->
 
 ## Automatic Service Discovery using Service Wrapper
 
 
 !SUB
 Wrapper script for Redis service to (de)register with Consul
-```
+```bash
 #!/usr/bin/env bash
 export CONTAINERIP=$(hostname -I | cut -f1 -d' ')
 
@@ -352,8 +355,9 @@ So the service registry should be updated from outside the container
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part2c
-![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noborder" -->
+![Consul logo](img/consul-servicediscovery.png) <!-- .element: class="noblock" -->
 ## Automatic Service Discovery using Consul and Registrator
 
 

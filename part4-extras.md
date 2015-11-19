@@ -76,15 +76,8 @@ Use Consul's K/V store to enable/disable features
 
 
 !SLIDE
+<!-- .element: class="center" -->
+<img src="http://cdn.nauts.io/img/cargonaut.svg" class="header">
 # Thanks!
 
 [nauts.io](http://nauts.io)
-
-!SUB
-
-### Want to know / learn more?
-
-- [Official Docker training](https://training.xebia.com/continuous-delivery-devops/introduction-to-docker/)
-- [Open Kitchen - Data Center Automation: Building multi-cloud infrastructure with Terraform](https://xebia.com/events/open-kitchen-datacentre-automation-building-multi-cloud-infrastructure-with-terraform)
-- [Summer Special - Build your own Continuous Delivery pipeline using Docker](https://training.xebia.com/summer-specials/build-your-own-continuous-delivery-pipeline-using-docker/)
-- [Summer Special - Deep Dive into Consul](https://training.xebia.com/summer-specials/deep-dive-into-consul/)

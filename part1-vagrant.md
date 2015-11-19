@@ -1,6 +1,6 @@
 ### part1
 # Vagrant
-![Vagrant](img/vagrant-logo.png) <!-- .element: class="noborder" -->
+![Vagrant](img/vagrant-logo.png)
 
 
 !SUB
@@ -31,10 +31,11 @@ But here's one anyway
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part1a
-![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noblock" -->
+![plus](img/plus.png) <!-- .element: class="noblock" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noblock" -->
 
 
 ## Run a Docker container with Vagrant
@@ -67,7 +68,7 @@ if __name__ == "__main__":
 ```
 
 !SUB
-This application is packaged in the [`cargonauts/helloworld-python`](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
+This application is packaged in the [cargonauts/helloworld-python](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
 
 The source can be found on [GitHub](https://github.com/cargonauts/helloworld-python)
 
@@ -161,7 +162,7 @@ id       name    provider   state   directory
 
 !SUB
 So, we've created the following topology:
-![Single App](img/topology/1a_single_app.png) <!-- .element: class="noborder" -->
+![Single App](img/topology/1a_single_app.png)
 
 
 !SUB
@@ -171,10 +172,11 @@ So, we've created the following topology:
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part1b
-![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noblock" -->
+![plus](img/plus.png) <!-- .element: class="noblock" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noblock" -->
 
 
 ## Orchestrate multiple Docker containers with Vagrant
@@ -206,7 +208,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=True)
 ```
 
-This application is also part of the [`cargonauts/helloworld-python`](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
+This application is also part of the [cargonauts/helloworld-python](https://registry.hub.docker.com/u/cargonauts/helloworld-python/) image
 
 
 
@@ -234,7 +236,7 @@ end
 !SUB
 
 The result will be this topology:
-![App and DB](img/topology/1b_app_db.png) <!-- .element: class="noborder" -->
+![App and DB](img/topology/1b_app_db.png)
 
 
 !SUB
@@ -243,7 +245,7 @@ The result will be this topology:
 
 !SUB
 Start the Dockerized apps
-```
+```bash
 # Cleanup previous part
 $ vagrant destroy -f
 $ cd ../part1b
@@ -254,7 +256,6 @@ Bringing machine 'hellodb' up with 'docker' provider...
 ==> redis: Docker host is required. One will be created if necessary...
     redis: Docker host VM is already ready.
 ```
-<!-- .element: class="bash" -->
 
 
 !SUB
@@ -277,7 +278,7 @@ Check if the application works, visit [192.168.190.85](http://192.168.190.85)
 
 !SUB
 But the app can't find the database :(
-![App DB error](img/app-db-error.png) <!-- .element: class="noborder" -->
+![App DB error](img/app-db-error.png)
 
 
 !SUB
@@ -288,10 +289,11 @@ They need a mechanism to find each other
 
 
 !SLIDE
+<!-- .element: class="center" -->
 ### part1c
-![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noborder" -->
+![Vagrant logo](img/vagrant-logo.png) <!-- .element: class="noblock" -->
+![plus](img/plus.png) <!-- .element: class="noblock" -->
+![Docker logo](img/docker-logo-no-text.png) <!-- .element: class="noblock" -->
 
 ## Orchestrate multiple containers with Docker links
 

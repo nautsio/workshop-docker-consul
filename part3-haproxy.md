@@ -1,11 +1,13 @@
+<!-- .element: class="center" -->
 ### part3
 # Load Balancing
-![Consul logo](img/consul-logo.png) <!-- .element: class="noborder" -->
-![plus](img/plus.png) <!-- .element: class="noborder" -->
-![HAProxy logo](img/haproxy-logo.png) <!-- .element: class="noborder" -->
+![Consul logo](img/consul-logo.png) <!-- .element: class="noblock" -->
+![plus](img/plus.png) <!-- .element: class="noblock" -->
+![HAProxy logo](img/haproxy-logo.png) <!-- .element: class="noblock" -->
 
 
 !SUB
+<!-- .element: class="center" -->
 ## Load-balancing the application
 
 Let's scale out our application
@@ -21,11 +23,12 @@ This has limitations, for example caching
 
 
 !SUB
+<!-- .element: class="center" -->
 So we'll use a proxy
 
 # HAProxy
 
-![HAProxy logo](img/haproxy-logo.png) <!-- .element: class="noborder" -->
+![HAProxy logo](img/haproxy-logo.png)
 
 
 !SUB
@@ -38,11 +41,12 @@ But we need a way to generate the HAProxy configuration
 
 
 !SUB
+<!-- .element: class="center" -->
 ### Consul-template
 
 > This project provides a convenient way to populate values from Consul into the filesystem using the consul-template daemon.
 
-[Consul-template @ GitHub](https://github.com/hashicorp/consul-template)
+[_Consul-template @ GitHub_](https://github.com/hashicorp/consul-template)
 
 
 !SUB
@@ -107,7 +111,7 @@ listen http-in
 
 
 !SUB
-We've pre-packaged a HAProxy in the<br>[`cargonauts/consul-haproxy`](https://registry.hub.docker.com/u/cargonauts/consul-haproxy/) image
+We've pre-packaged a HAProxy in the [cargonauts/consul-haproxy](https://registry.hub.docker.com/u/cargonauts/consul-haproxy/) Docker image
 
 The source can be found on [GitHub](https://github.com/cargonauts/consul-haproxy)
 
@@ -146,7 +150,7 @@ And add our HAProxy container
 
 !SUB
 The complete topology will look like this:
-![HAProxy](img/topology/3_haproxy.png) <!-- .element: class="noborder" -->
+![HAProxy](img/topology/3_haproxy.png)
 
 
 !SUB
