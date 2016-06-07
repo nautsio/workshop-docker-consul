@@ -1,6 +1,6 @@
 # Workshop Docker & Consul
 
-Files for the Docker & Consul workshop @ [cargonauts.io/workshop-docker-consul](http://cargonauts.io/workshop-docker-consul)
+Files for the Docker & Consul workshop @ [nauts.io/workshop-docker-consul](http://nauts.io/workshop-docker-consul)
 
 ## Setup
 You'll need the following software:
